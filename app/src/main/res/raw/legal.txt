@@ -1,0 +1,6 @@
+Derechos Reservados<br>
+Esta aplicacion fue realizada por:<br>
+<b>Version Core</b> - Miguel Montes, Miguel Jerónimo, Kattya Martinez y Fernando Orellana, jornada de desarrollo de proyectos, enero-febrero 2015<br>
+<b>Version 1.0</b> - Jessica Lopez y Glenda Portillo, como proyecto de graduacion 01-2015<br>
+<b>Version 2.0</b> - Alfredo Gochez, Eduardo Martinez, Gerardo Chavez y Francisco Herrera, como proyecto de graduacion 01-2016<br>
+<b>Rutas especiales proveidas por Sandra Gutierrez y estudiantes de Arquitectura<br>

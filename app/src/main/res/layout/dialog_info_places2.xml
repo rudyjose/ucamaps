@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titulo_edificio"
+                android:layout_weight="0.17"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:elegantTextHeight="false"
+                android:capitalize="words"
+                android:background="#000000"
+                android:textColor="#ffffff" />
+
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="255dp"
+                android:id="@+id/foto_edificio"
+                android:textAlignment="center"
+                android:foregroundGravity="fill_horizontal|fill_vertical"
+                android:layout_gravity="center|bottom|left|right|top" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="94dp"
+                android:id="@+id/info_edificio"
+                android:maxLength="100"
+                android:textStyle="normal"
+                android:textAlignment="viewEnd"
+                android:singleLine="false"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;&lt;&lt;"
+            android:id="@+id/goBackButton"
+            android:background="@color/common_signin_btn_light_text_pressed"
+            android:clickable="true"
+            android:textColor="@color/accent_material_light"
+            android:textSize="25dp"
+            android:layout_gravity="left|center_horizontal" />
+
+        <Button
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:text="Ver mas"
+            android:id="@+id/see_more_button"
+            android:textColor="@color/accent_material_light"
+            android:foregroundGravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:background="@color/common_signin_btn_light_text_pressed"
+            android:clickable="true"
+            android:enabled="true"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_weight="0.93" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">>>"
+            android:id="@+id/goForthButton"
+            android:background="@color/common_signin_btn_light_text_pressed"
+            android:clickable="true"
+            android:textColor="@color/accent_material_light"
+            android:textSize="25dp"
+            android:layout_gravity="center_horizontal|right" />
+    </LinearLayout>
+
+</LinearLayout>

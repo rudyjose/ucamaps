@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+repositories {
+    jcenter()
+}
+
+android {
+    compileSdkVersion 22
+    //buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "zero.ucamaps"
+        minSdkVersion 17
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        //Esto se agrego
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        } //hasta aca
+    }
+    packagingOptions {
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+
+
+}
+
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    // android support libraries
+    //se actualizo a la 22.2.0
+    //implementation 'com.android.support:recyclerview-v7:21.0.0+'
+    implementation 'com.android.support:recyclerview-v7:22.2.0'
+
+    //implementation 'com.android.support:appcompat-v7:21.0.0'
+    implementation 'com.android.support:appcompat-v7:22.2.0'
+
+    implementation  'com.esri.arcgis.android:arcgis-android:10.2.6-2'
+    //adding the butter knife library
+    implementation 'com.jakewharton:butterknife:6.0.0'
+    implementation 'com.google.android.gms:play-services-appindexing:8.1.0'
+    implementation 'com.android.volley:volley:1.0.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+
+    implementation 'com.android.support:multidex:1.0.0'
+
+}

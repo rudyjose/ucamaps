@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutMPA"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+<ImageView
+        android:id="@+id/imageReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Button to undo last point"
+        android:src="@drawable/ic_undo_black_24dp"
+        android:layout_weight="1" />
+    <ImageView
+        android:id="@+id/imageSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Button to route given points"
+        android:src="@drawable/ic_routing_take_center_fork"
+        android:layout_weight="1" />
+    <ImageView
+        android:id="@+id/imageQuit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Button to exit edit mode"
+        android:src="@drawable/ic_action_cancel"
+        android:layout_weight="1" />
+</LinearLayout>

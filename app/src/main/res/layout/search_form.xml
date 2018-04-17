@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/titulo_formulario"
+        android:layout_weight="0.1" />
+
+    <TextView
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="¿Que va a buscar?"
+        android:id="@+id/pregunta_formulario"
+        android:layout_weight="0.05" />
+
+    <RadioGroup
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.41"
+        android:id="@+id/rgBotones">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sitio"
+            android:id="@+id/rbSitio"
+            android:layout_weight="0.05"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal"
+            android:id="@+id/rbPersonal"
+            android:layout_weight="0.05"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edificio"
+            android:id="@+id/rbEdificio"
+            android:layout_weight="0.05" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ingrese lo que busca:"
+        android:id="@+id/txt_ingrese"
+        android:layout_weight="0.05" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/box_ingrese"
+        android:layout_weight="0.05" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/btn_buscar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.1" />
+</LinearLayout>

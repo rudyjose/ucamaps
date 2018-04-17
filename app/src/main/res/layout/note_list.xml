@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearSearchResultLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:weightSum="1">
+
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/titulo"
+            android:layout_row="0"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/edificio"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_editar"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_marginTop="3dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_eliminar"
+            android:layout_weight="0.16"
+            android:src="@drawable/ic_action_cancel"
+            android:layout_row="0"
+            android:layout_column="4" />
+
+
+
+    </GridLayout>
+
+</LinearLayout>
