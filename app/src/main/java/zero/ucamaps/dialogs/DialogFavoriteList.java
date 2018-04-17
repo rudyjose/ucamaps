@@ -112,4 +112,6 @@ public class DialogFavoriteList extends DialogFragment {
             }
         return listaFavoritos;
     }
+
+    //prueba commit
 }
