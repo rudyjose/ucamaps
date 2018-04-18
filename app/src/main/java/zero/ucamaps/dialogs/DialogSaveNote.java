@@ -118,18 +118,29 @@ public class DialogSaveNote extends DialogFragment{
                     ObjectOutputStream oos = null;
                     FileOutputStream fout = null;
                     try {
-                        FileInputStream streamIn = new FileInputStream(file);
-                        objectinputstream = new ObjectInputStream(streamIn);
-                        List<Nota> listaNotas = (List<Nota>) objectinputstream.readObject();
-                        Nota nuevaNota= new Nota();
-                        nuevaNota.setEdificio(edificio);
-                        nuevaNota.setNota(nota);
-                        nuevaNota.setTitulo(titulo);
-                        listaNotas.add(nuevaNota);
-                        fout = new FileOutputStream(file);
-                        oos = new ObjectOutputStream(fout);
-                        oos.writeObject(listaNotas);
-                        Toast.makeText(getActivity(), "Anotacion Guardada Exitosamente", Toast.LENGTH_SHORT).show();
+                        //RECUPERO LAS NOTAS
+                        List<Nota> listaNotas = recuperar();
+                        //BUSCO QUE NO HAYAN TITULOS REPETIDOS
+                        boolean banderaTitulo=false;
+
+                        for (int t=0;t< listaNotas.size();t++) {
+                            if(listaNotas.get(t).getTitulo().toLowerCase().equals(titulo.toLowerCase())){
+                                banderaTitulo=true;
+                            }
+                        }
+                        if(banderaTitulo){
+                            Toast.makeText(getActivity(),"Titulo de Anotación Repetida, ingrese otro título",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Nota nuevaNota= new Nota();
+                            nuevaNota.setEdificio(edificio);
+                            nuevaNota.setNota(nota);
+                            nuevaNota.setTitulo(titulo);
+                            listaNotas.add(nuevaNota);
+                            fout = new FileOutputStream(file);
+                            oos = new ObjectOutputStream(fout);
+                            oos.writeObject(listaNotas);
+                            Toast.makeText(getActivity(), "Anotacion Guardada Exitosamente", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -149,6 +160,38 @@ public class DialogSaveNote extends DialogFragment{
             ioe.printStackTrace();
         }
 
+    }
+
+    public List<Nota> recuperar(){
+        List<Nota> listaNota = new LinkedList<Nota>();
+        File tarjeta = Environment.getExternalStorageDirectory();
+        File dir = new File(tarjeta.getAbsolutePath(), "/ucamaps/");
+        dir.mkdirs();
+        File file = new File(dir.getAbsolutePath(),"reminders");
+        ObjectInputStream objectinputstream = null;
+        FileInputStream streamIn = null;
+        try {
+            if(file != null) {
+                try {
+                    streamIn = new FileInputStream(file);
+                    objectinputstream = new ObjectInputStream(streamIn);
+                    listaNota = (List<Nota>) objectinputstream.readObject();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (objectinputstream != null) {
+                        objectinputstream.close();
+                    }
+                    if (streamIn != null) {
+                        streamIn.close();
+                    }
+                }
+            }
+            return listaNota;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listaNota;
     }
 
     public String getEdificio() {

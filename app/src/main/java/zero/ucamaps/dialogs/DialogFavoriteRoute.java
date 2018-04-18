@@ -134,15 +134,32 @@ public class DialogFavoriteRoute extends DialogFragment {
                                     ObjectOutputStream oos = null;
                                     FileOutputStream fout = null;
                                     try {
-                                        FileInputStream streamIn = new FileInputStream(file);
-                                        objectinputstream = new ObjectInputStream(streamIn);
-                                        List<RutaEspecial> listaRutas = (List<RutaEspecial>) objectinputstream.readObject();
-                                        listaRutas.add(new RutaEspecial(nombre_ruta, listaPuntos));
-                                        fout = new FileOutputStream(file);
-                                        oos = new ObjectOutputStream(fout);
-                                        oos.writeObject(listaRutas);
-                                        Toast.makeText(getActivity(), "Ruta Guardada Exitosamente", Toast.LENGTH_SHORT).show();
-                                    } catch (Exception e) {
+
+                                        //GUARDANDO UNA NUEVA RUTA
+                                        //DEBO OBTENER LAS RUTAS YA GUARDADAS PARA VERIFICAR QUE NO SE REPITAN NOMBRES
+                                        List<RutaEspecial> obtenidasRutas = recuperar();
+                                        //TENGO QUE BUSCAR SI HAY REPETIDOS CON EL NOMBRE QUE VA A INGRESAR
+                                        boolean banderaNombre=false;
+
+                                        for (int t=0;t< obtenidasRutas.size();t++) {
+                                            if(obtenidasRutas.get(t).getNombre().toLowerCase().equals(nombre_ruta.toLowerCase())){
+                                                banderaNombre=true;
+                                            }
+                                        }
+
+
+                                        if(banderaNombre){
+                                            Toast.makeText(getActivity(),"Nomnbre de Ruta ya existe, ingrese otro nombre",Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            obtenidasRutas.add(new RutaEspecial(nombre_ruta, listaPuntos));
+                                            fout = new FileOutputStream(file);
+                                            oos = new ObjectOutputStream(fout);
+                                            oos.writeObject(obtenidasRutas);
+                                            Toast.makeText(getActivity(), "Ruta Guardada Exitosamente", Toast.LENGTH_SHORT).show();
+                                        }
+
+
+                                      } catch (Exception e) {
                                         e.printStackTrace();
                                     } finally {
                                         if (objectinputstream != null) {
@@ -170,6 +187,39 @@ public class DialogFavoriteRoute extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    public List<RutaEspecial> recuperar(){
+        List<RutaEspecial> listaFavoritos = new LinkedList<RutaEspecial>();
+        int i = 0;
+        File tarjeta = Environment.getExternalStorageDirectory();
+        File dir = new File(tarjeta.getAbsolutePath(), "/ucamaps/");
+        dir.mkdirs();
+        File file = new File(dir.getAbsolutePath(),"favorites_routes");
+        ObjectInputStream objectinputstream = null;
+        FileInputStream streamIn = null;
+        try {
+            if(file != null) {
+                try {
+                    streamIn = new FileInputStream(file);
+                    objectinputstream = new ObjectInputStream(streamIn);
+                    listaFavoritos = (List<RutaEspecial>) objectinputstream.readObject();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (objectinputstream != null) {
+                        objectinputstream.close();
+                    }
+                    if (streamIn != null) {
+                        streamIn.close();
+                    }
+                }
+            }
+            return listaFavoritos;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listaFavoritos;
     }
 
     private int calcular_longitud() throws IOException {
