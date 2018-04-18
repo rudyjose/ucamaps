@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingTop="4dp"
+        android:text="texto"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="65dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/abc_toolbar_collapse_description"
+        android:src="@drawable/ic_action_cancel" />
+
+</LinearLayout>
+

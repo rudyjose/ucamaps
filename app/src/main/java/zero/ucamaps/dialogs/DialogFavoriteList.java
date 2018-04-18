@@ -4,26 +4,19 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
-import android.view.WindowManager;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import zero.ucamaps.R;
-import zero.ucamaps.beans.FavoriteRoute;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.location.RoutingDialogFragment;
 import zero.ucamaps.util.GlobalPoints;
@@ -39,46 +32,43 @@ public class DialogFavoriteList extends DialogFragment {
         this.mRoutingDialogListener = dialogListener;
     }
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
 
         //Leer rutas favoritas para ponerlas en la lista
         List<RutaEspecial> listaRutas = recuperar();
 
-        String[] listaRutasString = new String[listaRutas.size()];
+        ArrayList<String> listaRutasString = new ArrayList<>();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-
 
         GlobalPoints globalListRoute = (GlobalPoints) getActivity().getApplicationContext();
         globalListRoute.setListaRutas(listaRutas);
 
         for(int i = 0;i < listaRutas.size() ;i++){
-                listaRutasString[i] =  listaRutas.get(i).getNombre();
+                listaRutasString.add(listaRutas.get(i).getNombre());
          }
 
+        FavoritesAdapter adapter = new FavoritesAdapter(getActivity(), listaRutasString, listaRutas);
 
-                builder.setView(inflater.inflate(R.layout.favorites, null))
-                        .setTitle("Rutas Favoritas")
-                        .setItems(listaRutasString, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            GlobalPoints globalListRoute = (GlobalPoints) getActivity().getApplicationContext() ;
+        builder.setView(inflater.inflate(R.layout.favorites, null))
+                .setTitle("Rutas Favoritas")
+                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    GlobalPoints globalListRoute = (GlobalPoints) getActivity().getApplicationContext() ;
+                    List<RutaEspecial> listaRutas = globalListRoute.getListaRutas();
+                    RutaEspecial favorito = listaRutas.get(which);
+                    mRoutingDialogListener.onGetRouteMultiple(favorito,0);
+                }
+            });
 
-                            List<RutaEspecial> listaRutas = globalListRoute.getListaRutas();
-                            RutaEspecial favorito = listaRutas.get(which);
-                            mRoutingDialogListener.onGetRouteMultiple(favorito,0);
-                        }
-                    });
-
-
-
-                return builder.create();
-
+        return builder.create();
 
     }
+
 
     public List<RutaEspecial> recuperar(){
         List<RutaEspecial> listaFavoritos = new LinkedList<RutaEspecial>();
@@ -112,6 +102,4 @@ public class DialogFavoriteList extends DialogFragment {
             }
         return listaFavoritos;
     }
-
-
 }
