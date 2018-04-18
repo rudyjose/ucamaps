@@ -48,9 +48,9 @@ public class DialogSpecialRoutes extends DialogFragment{
         if(listaRutas.size()< 1){
             Toast.makeText(
                     getActivity(),
-                    "Ocurrió un error, intente de nuevo mas tarde",
+                    "La lista de Rutas se encuentra vacía",
                     Toast.LENGTH_LONG).show();
-            getActivity().finish();
+           // getActivity().finish();
         }else {
             String[] listaRutasString = new String[listaRutas.size()];
 
