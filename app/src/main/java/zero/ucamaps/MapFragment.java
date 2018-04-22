@@ -17,6 +17,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -186,6 +188,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	// GPS location tracking
 	private boolean mIsLocationTracking;
 	private Point mLocation = null;
+	private LocationManager locManager = null;
+	private AlertDialog alert = null;
 
 	public static boolean showBar=true;
 	public void setEditButton(MenuItem editButton) {
@@ -566,7 +570,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						letra = Color.BLACK;
 					} else if (NIGHT_MAP.equals(mBasemapPortalItemId)) {
 						icono = R.drawable.pin_circle_yellow;
-						letra = Color.WHITE;
+						//letra = Color.WHITE;
+						letra=Color.rgb(255,140,0);
 					} else if (ALT_MAP.equals(mBasemapPortalItemId)) {
 						icono = R.drawable.pin_circle_green;
 						letra = Color.BLACK;
@@ -584,6 +589,11 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 					TextSymbol text = new TextSymbol(FontStyle.ITALIC.name(), Integer.toString(editPoints), letra);
 					text.setHorizontalAlignment(TextSymbol.HorizontalAlignment.CENTER);
+					if(NIGHT_MAP.equals(mBasemapPortalItemId)){
+						text.setFontDecoration(FontDecoration.UNDERLINE);
+						//text.setFontFamily("serif");
+
+					}
 					//text.setFontDecoration(FontDecoration.LINE_THROUGH);
 					//text.setColor(255);
 					text.setFontWeight(FontWeight.BOLD);
@@ -853,7 +863,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onProviderDisabled(String arg0) {
-				Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
+				AlertNoGps();
 			}
 
 			@Override
@@ -867,6 +878,29 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		});
 		locDispMgr.start();
 		mIsLocationTracking = true;
+	}
+
+	// ALERTA PARA INDICAR AL USUARIO QUE PUEDE ACTIVAR GPS PARA OBTNER LA UBICACION
+	// EN CASO NO PUEDA ACCEDER A LA RED DE LA UNIVERSIDAD
+
+	private void AlertNoGps() {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setMessage("GPS desactivado, ¿Desea activarlo?")
+				.setCancelable(false)
+				.setTitle("Alerta GPS")
+				.setIcon(R.drawable.nogps)
+				.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+					public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+						startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+					}
+				})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+						dialog.cancel();
+					}
+				});
+		alert = builder.create();
+		alert.show();
 	}
 
 	/**
@@ -1817,7 +1851,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}
 
 			// Create polyline graphic of the full route
-			SimpleLineSymbol lineSymbol = new SimpleLineSymbol(linea, 2,STYLE.SOLID);
+			SimpleLineSymbol lineSymbol = new SimpleLineSymbol(linea, 5,STYLE.SOLID);
 
 			Graphic routeGraphic = new Graphic(route.getRouteGraphic().getGeometry(), lineSymbol);
 
@@ -1829,7 +1863,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			if(DAY_MAP.equals(mBasemapPortalItemId)){
 				letra = Color.BLACK;
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
-				letra = Color.WHITE;
+				//letra = Color.WHITE;
+				letra = Color.rgb(255,140,0);
 			}else if(ALT_MAP.equals(mBasemapPortalItemId)){
 				letra = Color.BLACK;
 			}else{
@@ -1837,7 +1872,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}
 
 			TextSymbol textoInicial = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(0),letra);
-			textoInicial.setSize(15);
+			if(NIGHT_MAP.equals(mBasemapPortalItemId)){
+				textoInicial.setFontDecoration(FontDecoration.UNDERLINE);
+				//textoInicial.setFontFamily("serif");
+
+			}
+			textoInicial.setSize(20);
 			textoInicial.setFontWeight(FontWeight.BOLD);
 			textoInicial.setHorizontalAlignment(TextSymbol.HorizontalAlignment.CENTER);
 			textoInicial.setOffsetY(40);
@@ -1853,7 +1893,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				graphics.add(createMarkerGraphic(puntosGlobales.get(i),1));
 
 				TextSymbol text = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(i),letra);
-				text.setSize(15);
+				if(NIGHT_MAP.equals(mBasemapPortalItemId)){
+					text.setFontDecoration(FontDecoration.UNDERLINE);
+					//textoInicial.setFontFamily("serif");
+
+				}
+				text.setSize(20);
 				text.setFontWeight(FontWeight.BOLD);
 				text.setHorizontalAlignment(TextSymbol.HorizontalAlignment.CENTER);
 				text.setOffsetY(40);
@@ -1868,7 +1913,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 
 			TextSymbol textoFinal = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(nombrePuntosGlobales.size() -1),letra);
-			textoFinal.setSize(15);
+			if(NIGHT_MAP.equals(mBasemapPortalItemId)){
+				textoFinal.setFontDecoration(FontDecoration.UNDERLINE);
+				//textoInicial.setFontFamily("serif");
+
+			}
+			textoFinal.setSize(20);
 			textoFinal.setFontWeight(FontWeight.BOLD);
 			textoFinal.setHorizontalAlignment(TextSymbol.HorizontalAlignment.CENTER);
 			textoFinal.setOffsetY(40);

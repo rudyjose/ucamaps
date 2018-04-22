@@ -107,7 +107,7 @@ public class DialogFavoriteRoute extends DialogFragment {
                                 File file = new File(dir.getAbsolutePath(),"favorites_routes");
                                 //verificamos si el archivo existe
                                 if (file.createNewFile()) {
-                                    //si la condicion da true, es por que el archivo no existia, y se creo, por ende, esta es la primera ruta creada
+                                    //si    la condicion da true, es por que el archivo no existia, y se creo, por ende, esta es la primera ruta creada
                                     ObjectOutputStream oos = null;
                                     List<RutaEspecial> listaRutas = new LinkedList<RutaEspecial>();
                                     listaRutas.add(new RutaEspecial(nombre_ruta, listaPuntos));
