@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -850,8 +851,26 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			public void onLocationChanged(Location loc) {
 				double locy = loc.getLatitude();
 				double locx = loc.getLongitude();
-				Point wgspoint = new Point(locx, locy);
+				Point wgspoint;
+
+				//edit
+				Location lMapa=new Location("");
+				/*COORDENADAS UCA lat: 13.680582 lon: -89.236678 */
+				lMapa.setLatitude(13.680582);
+				lMapa.setLongitude(-89.236678);
+				float distanceInMeters=loc.distanceTo(lMapa);
+				if(distanceInMeters<=100) {
+					wgspoint = new Point(locx, locy);
+
+				}else{
+					wgspoint = new Point(13.680582, -89.236678);
+					Toast.makeText(getActivity(), "Te encuentras fuera de los limites de la UCA, pero puedes hacer uso de la app.", Toast.LENGTH_SHORT).show();
+				}
+				//Toast.makeText(getActivity(),"X: "+lMapa.getLatitude()+", Y: "+lMapa.getLongitude(),Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(),String.valueOf(distanceInMeters)+" mts", Toast.LENGTH_SHORT).show();
+
 				mLocation = (Point) GeometryEngine.project(wgspoint, SpatialReference.create(4326), mMapView.getSpatialReference());
+
 				if (!locationChanged) {
 					locationChanged = true;
 					Unit mapUnit = mMapView.getSpatialReference().getUnit();
@@ -1293,6 +1312,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
                     //DialogFragment newFragment = new DialogInfoPlaces();
                     //newFragment.show(getFragmentManager(), "Información");
                 TextView barra_busqueda = (TextView) getActivity().findViewById(R.id.textView1);
+				ProgressDialog progress = new ProgressDialog(getActivity());
 				CargaDetalles cd = new CargaDetalles();
                 cd.fm = getFragmentManager();
 				cd.setNombreEdificio(barra_busqueda.getText().toString());
@@ -1434,14 +1454,28 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	 * background thread and displays the first result on the map on the UI thread.
 	 */
 	private class LocatorAsyncPreTask extends AsyncTask<String,Void,Context>{
-		private volleySingleton volley;
+        private static final String TAG_INFO_SEARCH_PROGRESS_DIALOG = "TAG_INFO_SEARCH_PROGRESS_DIALOG";
+        private Exception mException;
+        private ProgressDialogFragment mProgressDialog;
+        private volleySingleton volley;
 		private RequestQueue requestQueue;
 		private List<Sitio> listaSitios = new ArrayList<>();
 		private String nombre;
+        public LocatorAsyncPreTask() {
+        }
 
-		@Override
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = ProgressDialogFragment.newInstance("Cargando Información del lugar");
+            // set the target fragment to receive cancel notification
+            mProgressDialog.setTargetFragment(MapFragment.this,REQUEST_CODE_PROGRESS_DIALOG);
+            mProgressDialog.show(getActivity().getFragmentManager(),TAG_INFO_SEARCH_PROGRESS_DIALOG);
+        }
+
+        @Override
 		protected Context doInBackground(String... strings){
 			//asignamos valores al volley y a la queue.
+            mException=null;
 			volley = volleySingleton.getInstance(getActivity().getApplicationContext());
 			requestQueue = volley.getRequestQueue();
 			//llamamos a getSitios, donde obtenemos las cosas que necesitamos
@@ -1453,14 +1487,28 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}else{
 			nombre = strings[0];
 			}
-			getSitios();
-			Context contexto = getActivity().getApplicationContext();
-			return contexto;
+			try {
+                getSitios();
+
+            }catch (Exception e){
+                mException = e;
+            }
+
+            Context contexto = getActivity().getApplicationContext();
+            return contexto;
+
 		}
 
 		@Override
 		protected void onPostExecute(Context contexto){
 			//relleno
+            mProgressDialog.dismiss();
+            if (mException != null) {
+                Log.w(TAG, "Falló recuperar info de la base:");
+                mException.printStackTrace();
+                Toast.makeText(getActivity(),"Falló Recuperación de Información del Lugar",Toast.LENGTH_LONG).show();
+                return;
+            }
 		}
 
 		public void getSitios() {

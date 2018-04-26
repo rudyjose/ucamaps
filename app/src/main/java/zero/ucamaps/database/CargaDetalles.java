@@ -3,6 +3,7 @@ package zero.ucamaps.database;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,14 +30,20 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import zero.ucamaps.MainActivity;
+import zero.ucamaps.MapFragment;
 import zero.ucamaps.R;
 import zero.ucamaps.dialogs.DialogInfoPlaces;
 import zero.ucamaps.dialogs.DialogSpecialRoutes;
+import zero.ucamaps.dialogs.ProgressDialogFragment;
 
 /**
  * Created by alf on 01/06/2016.
  */
 public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
+
+    private Exception mException;
+    private ProgressDialog mProgressDialog;
     private volleySingleton volley;
     private RequestQueue requestQueue;
     public DialogFragment dip;
@@ -45,17 +52,30 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
     public DetalleEdificio detalle = new DetalleEdificio();
     private Context contexto;
 
+
     @Override
     protected void onPreExecute(){
-    super.onPreExecute();
+        super.onPreExecute();
+     /*   mProgressDialog.setMessage("Cargando Información del lugar");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+*/
+        // set the target fragment to receive cancel notification
+       // mProgressDialog.setTargetFragment(CargaDetalles.this,REQUEST_CODE_PROGRESS_DIALOG);
+      //  mProgressDialog.show(getActivity().getFragmentManager(),TAG_INFO_SEARCH_PROGRESS_DIALOG);
+
     }
 
     @Override
     protected Context doInBackground(Activity... activities) {
         //asignamos valores al volley y a la queue.
+        mException=null;
         volley = volleySingleton.getInstance(activities[0].getApplicationContext());
         requestQueue = volley.getRequestQueue();
-        selectEdificio();
+
+            selectEdificio();
+
+
         contexto = activities[0].getApplicationContext();
         return contexto;
     }
@@ -63,6 +83,17 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
     @Override
     protected void onPostExecute(Context contexto) {
         //relleno
+
+
+       /*     mProgressDialog.dismiss();
+
+        if (mException != null) {
+            Log.w("DETALLES:","Falló recuperar info de la base:");
+            mException.printStackTrace();
+            //Toast.makeText(,"Falló Recuperación de Información Edificio",Toast.LENGTH_LONG).show();
+            return;
+        }
+        */
     }
 
     public void selectEdificio() {
