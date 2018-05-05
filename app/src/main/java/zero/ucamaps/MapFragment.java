@@ -22,13 +22,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -90,9 +93,11 @@ import zero.ucamaps.util.TaskExecutor;
 
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.LinearUnit;
 import com.esri.core.geometry.Point;
+import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.geometry.Unit;
@@ -119,11 +124,15 @@ import com.esri.core.tasks.na.RouteParameters;
 import com.esri.core.tasks.na.RouteResult;
 import com.esri.core.tasks.na.RouteTask;
 import com.esri.core.tasks.na.StopGraphic;
+import com.google.zxing.client.android.camera.CameraConfigurationUtils;
+
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Implements the view that shows the map.
@@ -180,17 +189,22 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	public static MapView mMapView;
 	private String mMapViewState;
 
+	//Variable global para guardar los limites del mapa
+	Envelope maxExtent = null;
+
 	Point center = new Point(0,0);
 	Boolean ignoreTap = false;
 	boolean tap = false;
 	boolean dragged = false;
 
+	static  boolean myLoc = true;
 	static boolean editMode = false;
 	// GPS location tracking
 	private boolean mIsLocationTracking;
 	private Point mLocation = null;
 	private LocationManager locManager = null;
 	private AlertDialog alert = null;
+	private String gpsActive="apagado";
 
 	public static boolean showBar=true;
 	public void setEditButton(MenuItem editButton) {
@@ -230,7 +244,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private LayoutInflater mInflater;
 	private String mStartLocation, mEndLocation;
 
-    public static MapFragment newSoundInstance(String basemapPortalItemId, String changeSound) {
+	public LocationManager locationManager;
+
+	public static MapFragment newSoundInstance(String basemapPortalItemId, String changeSound) {
         MapFragment mapFragment = new MapFragment();
 
         Bundle args = new Bundle();
@@ -259,7 +275,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
             mSoundActive = args.getString(KEY_SOUND_ITEM);
         }
 
-        // Calling setRetainInstance() causes the Fragment instance to be retained when its Activity is destroyed and
+
+		// Calling setRetainInstance() causes the Fragment instance to be retained when its Activity is destroyed and
         // recreated. This allows map Layer objects to be retained so data will not need to be fetched from the network again.
         setRetainInstance(true);
 
@@ -268,7 +285,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	}
 
-	@Override
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		//Clave para licenciamiento gratuito
 		ArcGISRuntime.setClientId("eACA1B4bnlmT8rPm");
@@ -335,6 +353,13 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					//item.setIcon(null);
 					//item.setTitle("");
 				}
+				return true;
+				case R.id.myLoc:
+					if(myLoc){
+						this.retornaU();
+						MainActivity.mDrawerLayout.closeDrawers();
+
+					}
 				return true;
 
 			default:
@@ -440,9 +465,15 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		mMapView = mapView;
 		mMapView.setEsriLogoVisible(false);
 		mMapView.enableWrapAround(true);
+
 		mapView.setAllowRotationByPinch(true);
 
-        //Initializing sound
+		//Coloco el maximo de zoom out que me permitira
+		mMapView.setMinScale(10500.00);
+        mMapView.setMaxScale(500.00);
+
+
+		//Initializing sound
         initializeSound();
 
 		// Creating an inflater
@@ -457,6 +488,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 		// Displaying the searchbox layout
 		showSearchBoxLayout();
+
 
 		mMapView.setOnPinchListener(new OnPinchListener() {
 			/**
@@ -512,10 +544,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					}
 					// add search and routing layers
 					addGraphicLayers();
+
 				}
 			}
 
 		});
+
 
 		// Setup use of magnifier on a long press on the map
 		mMapView.setShowMagnifierOnLongPress(true);
@@ -641,6 +675,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	}
 
+
 	/**
 	 * Adds the compass as per the height of the layout
 	 * @param height
@@ -662,6 +697,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		mCompass.setLayoutParams(compassFrameParams);
 
 		mCompass.setVisibility(View.GONE);
+
 
 		mCompass.setOnClickListener(new OnClickListener() {
 
@@ -842,6 +878,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		locDispMgr.setAutoPanMode(AutoPanMode.LOCATION);
 		locDispMgr.setAllowNetworkLocation(true);
 
+
 		locDispMgr.setLocationListener(new LocationListener() {
 
 			boolean locationChanged = false;
@@ -854,74 +891,102 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				Point wgspoint;
 
 				//edit
-				Location lMapa=new Location("");
+				Location lMapa = new Location("");
 				/*COORDENADAS UCA lat: 13.680582 lon: -89.236678 */
-				lMapa.setLatitude(13.680582);
-				lMapa.setLongitude(-89.236678);
-				float distanceInMeters=loc.distanceTo(lMapa);
-				if(distanceInMeters<=100) {
+				lMapa.setLatitude(13.681000);
+				lMapa.setLongitude(-89.235442);
+				float distanceInMeters = loc.distanceTo(lMapa);
+				if (distanceInMeters <= 300) {
 					wgspoint = new Point(locx, locy);
 
-				}else{
-					wgspoint = new Point(13.680582, -89.236678);
+				} else {
+					wgspoint = new Point(lMapa.getLatitude(),lMapa.getLongitude());
 					Toast.makeText(getActivity(), "Te encuentras fuera de los limites de la UCA, pero puedes hacer uso de la app.", Toast.LENGTH_SHORT).show();
 				}
-				//Toast.makeText(getActivity(),"X: "+lMapa.getLatitude()+", Y: "+lMapa.getLongitude(),Toast.LENGTH_SHORT).show();
 				//Toast.makeText(getActivity(),String.valueOf(distanceInMeters)+" mts", Toast.LENGTH_SHORT).show();
 
 				mLocation = (Point) GeometryEngine.project(wgspoint, SpatialReference.create(4326), mMapView.getSpatialReference());
+
 
 				if (!locationChanged) {
 					locationChanged = true;
 					Unit mapUnit = mMapView.getSpatialReference().getUnit();
 					double zoomWidth = Unit.convertUnits(SEARCH_RADIUS, Unit.create(LinearUnit.Code.METER), mapUnit);
-					Envelope zoomExtent = new Envelope(mLocation, zoomWidth / 10, zoomWidth / 10);
-					//mMapView.setExtent(zoomExtent);
+					Envelope zoomExtent = new Envelope(mLocation, zoomWidth/10, zoomWidth/10);
+					mMapView.setExtent(zoomExtent);
 				}
+
 			}
 
 			@Override
 			public void onProviderDisabled(String arg0) {
-				//Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
-				AlertNoGps();
+				if(!gpsActive.equals("THINKING")){
+					gpsActive="OFF";
+				}
+				Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
+				if(gpsActive.equals("OFF")) {
+					alertNoGps(getActivity());
+				}
 			}
 
 			@Override
 			public void onProviderEnabled(String arg0) {
+				if(gpsActive.equals("THINKING")){
+					gpsActive="ON";
+				}
 				Toast.makeText(getActivity(), "GPS encendido", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+				if(gpsActive.equals("THINKING")){
+					gpsActive="ON";
+				}else{
+					gpsActive="OFF";
+				}
 			}
 		});
+
 		locDispMgr.start();
 		mIsLocationTracking = true;
 	}
 
+	//Funcion para regresar a la vista inicial
+
+	public void retornaU() {
+
+			mMapView.centerAt(13.681000, -89.235442, true);
+			Toast.makeText(getActivity(), "Fuiste enviado a la UCA, nuevamente.", Toast.LENGTH_SHORT).show();
+
+    }
+
 	// ALERTA PARA INDICAR AL USUARIO QUE PUEDE ACTIVAR GPS PARA OBTNER LA UBICACION
 	// EN CASO NO PUEDA ACCEDER A LA RED DE LA UNIVERSIDAD
 
-	private void AlertNoGps() {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setMessage("GPS desactivado, ¿Desea activarlo?")
+	public void alertNoGps(final Activity activity) {
+		gpsActive="THINKING";
+		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setMessage("Sistema GPS desactivado. \n¿Quieres activarlo?")
 				.setCancelable(false)
 				.setTitle("Alerta GPS")
 				.setIcon(R.drawable.nogps)
 				.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-						startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+						gpsActive="ON";
+						startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 					}
 				})
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
 						dialog.cancel();
+						gpsActive="OFF";
 					}
 				});
 		alert = builder.create();
 		alert.show();
 	}
-
 	/**
 	 * Called from search_layout.xml when user presses Search button.
      */
@@ -1603,9 +1668,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		}
 	}
 
-
-
-
 	private class LocatorAsyncTask extends AsyncTask<LocatorFindParameters, Void, List<LocatorGeocodeResult>> {
 		private static final String TAG_LOCATOR_PROGRESS_DIALOG = "TAG_LOCATOR_PROGRESS_DIALOG";
 		private Exception mException;
@@ -1684,8 +1746,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			}
 		}
-
-
 
 	/**
 	 * This class provides an AsyncTask that performs a routing request on a
@@ -2116,7 +2176,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	/**
 	 * Converts device specific pixels to density independent pixels.
-	 * 
+	 *
 	 * @param context
 	 * @param px
 	 *            number of device specific pixels

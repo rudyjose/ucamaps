@@ -15,5 +15,11 @@
         app:showAsAction="always"
         android:gravity="right"
         android:title="@string/action_location"/>
+    <item
+        android:id="@+id/myLoc"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        android:gravity="right"
+        android:title="My Loc"/>
 
 </menu>

@@ -1,5 +1,6 @@
 package zero.ucamaps;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
     private String baseColor = "";
     public CargaAsinc ca = new CargaAsinc();
 
+    AlertDialog alert = null;
 
 
     MapFragment mapFragment;
@@ -110,9 +112,26 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
 
         }
+
+    // Verifica al iniciar la app si el gps esta activo o no, si no lo esta pide activarlo
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if ( !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            mapFragment.alertNoGps(this);
+        }
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (alert != null){
+            alert.dismiss();
+        }
     }
 
     @Override
