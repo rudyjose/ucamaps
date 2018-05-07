@@ -31,6 +31,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -260,6 +262,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	public MapFragment() {
 		// make MapFragment ctor private - use newInstance() instead
 	}
+
+	ProgressDialog progressDoalog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -1369,24 +1373,44 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		});
 
         ImageView iv_info = (ImageView) mSearchResult.findViewById(R.id.info_place_button);
-        iv_info.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //if(TheresAPlace) {
-                    //DialogFragment newFragment = new DialogInfoPlaces();
-                    //newFragment.show(getFragmentManager(), "Información");
-                TextView barra_busqueda = (TextView) getActivity().findViewById(R.id.textView1);
-				ProgressDialog progress = new ProgressDialog(getActivity());
-				CargaDetalles cd = new CargaDetalles();
-                cd.fm = getFragmentManager();
-				cd.setNombreEdificio(barra_busqueda.getText().toString());
-				Log.d("Esto tiene la barra",barra_busqueda.getText().toString());
-                Toast.makeText(getActivity(), "Cargando Informacion...",Toast.LENGTH_SHORT).show();
-                cd.execute(getActivity());
+		iv_info.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				progressDoalog = new ProgressDialog(getActivity());
+				progressDoalog.setMax(100);
+				progressDoalog.setMessage("cargando....");
+				progressDoalog.setTitle("Estamos obteniendo la información");
+				progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+				progressDoalog.show();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							while (progressDoalog.getProgress() <= progressDoalog
+									.getMax()) {
+								Thread.sleep(100);
+								handle.sendMessage(handle.obtainMessage());
+								if (progressDoalog.getProgress() == progressDoalog
+										.getMax()) {
+									progressDoalog.dismiss();
+								}
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}).start();
+			}
 
-            }
-        });
+			Handler handle = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+					progressDoalog.incrementProgressBy(1);
+				}
+			};
+		});
 
 		// Add the compass after getting the height of the layout
 		mSearchResult.getViewTreeObserver().addOnGlobalLayoutListener(
