@@ -209,6 +209,8 @@
 
     <!-- Error Message -->
     <string name="error_nombre_igual_ruta">Los valores no estan permitidos.</string>
+    <string name="opcion">opcion</string>
+    <string name="ver">ver</string>
 
 
 </resources>

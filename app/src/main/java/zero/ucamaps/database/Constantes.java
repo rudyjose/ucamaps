@@ -19,6 +19,7 @@ public class Constantes {
     public static final String INSERT = IP + PUERTO_HOST + "/sql10229217/insert_ruta.php";
     public static final String GET_BY_NOMBRE = IP + PUERTO_HOST + "/sql10229217/get_detalle.php";
     public static final String GET_SITIOS = IP + PUERTO_HOST + "/sql10229217/get_sitios.php";
+    public static final String GET_SITIOS2 = IP + PUERTO_HOST + "/sql10229217/get_sitiosall.php";
     public static final String GET_RUTA_BY_ID = IP + PUERTO_HOST + "/sql10229217/get_detalle_ruta.php";
 
 }

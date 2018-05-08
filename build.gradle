@@ -23,5 +23,6 @@ allprojects {
             url 'http://dl.bintray.com/esri/arcgis'
         }
 
+        google()
     }
 }

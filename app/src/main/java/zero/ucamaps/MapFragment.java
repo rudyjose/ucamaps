@@ -38,6 +38,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.support.v4.view.GravityCompat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +50,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -245,6 +248,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private View mSearchResult;
 	private LayoutInflater mInflater;
 	private String mStartLocation, mEndLocation;
+	private  List<String> sitios;
 
 	public LocationManager locationManager;
 
@@ -795,14 +799,52 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 		// Inflating the layout from the xml file
 		mSearchBox = mInflater.inflate(R.layout.searchview, null);
+
 		// Setting the layout parameters to the layout
 		mSearchBox.setLayoutParams(mlayoutParams);
-		// Initializing the searchview and the image view
-		final SearchView mSearchview = (SearchView) mSearchBox.findViewById(R.id.searchView1);
+
+		//Creando arreglo de datos (SITIOS) para opciones del autoComplete
+
+		// TENGO QUE HACER LLAMA AL WEB SERVICE PARA CARGAR TODOS LOS SITIOS
+		//AGREGARLOS AL ARREGLO sitios.
+		//sitios= new ArrayList<>();
+		//new SitiosAsyncTask();
+
+
+		//Locator SitioAsyncTask lapt = new Locator SitioAsyncTask();
+		//		lapt.execute("sitios");
+
+
+		//EJEMPLO PARA EL AUTOCOMPLETE CON DATOS QUEMADOS
+		List<String>sitios2 = new ArrayList<>();
+
+		sitios2.add("CAFETERIA");
+		sitios2.add("EDIFICIO A");
+		sitios2.add("EDIFICIO B");
+		sitios2.add("ICAS");
+		sitios2.add("CUBICULO MATE");
+		sitios2.add("BIBLIOTECA");
+		sitios2.add("DEI");
+		sitios2.add("DEPARTAMENTO MATE");
+		//validar que la lista de sitios que se obtuvo de la base no esté vacía
+		//if(sitios.isEmpty() && sitios.size()>0){
+		//entonces se puede usar en el adaptador o poner una quemada
+
+		//	sitios = sitios2;
+
+		//}
+
+
+
+
+		final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) mSearchBox.findViewById(R.id.searchView1);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sitios2);
+		//autoCompleteTextView.setLines(1);
+
+		autoCompleteTextView.setAdapter(adapter);
 
 		ImageView iv_route = (ImageView) mSearchBox.findViewById(R.id.imageView1);
-		mSearchview.setIconifiedByDefault(false);
-		mSearchview.setQueryHint(SEARCH_HINT);
+		ImageView lupa = (ImageView) mSearchBox.findViewById(R.id.lupasearch);
 
 		// Adding the layout to the map conatiner
 		mMapContainer.addView(mSearchBox);
@@ -816,18 +858,25 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}
 		});
 
-		// Setup the listener when the search button is pressed on the keyboard
-		mSearchview.setOnQueryTextListener(new OnQueryTextListener() {
-
+		//evento en boton lupa para el text autoComplete
+		lupa.setOnClickListener(new OnClickListener() {
 			@Override
-			public boolean onQueryTextSubmit(String query) {
-				onSearchButtonClicked(query);
-				mSearchview.clearFocus();
-				return true;
+			public void onClick(View v) {
+				onSearchButtonClicked(autoCompleteTextView.getText().toString());
+				autoCompleteTextView.clearFocus();
 			}
+		});
 
+		//Evento "Done" desde teclado
+		autoCompleteTextView.setOnKeyListener(new View.OnKeyListener() {
 			@Override
-			public boolean onQueryTextChange(String newText) {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if(event.getAction()== KeyEvent.ACTION_DOWN && keyCode==KeyEvent.KEYCODE_ENTER){
+					onSearchButtonClicked(autoCompleteTextView.getText().toString());
+					autoCompleteTextView.clearFocus();
+					return true;
+				}
+
 				return false;
 			}
 		});
@@ -2226,5 +2275,121 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	public void drawRoute(){
 		onGetRoute(getString(R.string.my_location), mLocationLayerPointString);
+	}
+
+	private class SitioAsyncTask extends AsyncTask<String,Void,Context>{
+
+		private Exception mException;
+
+		private volleySingleton volley;
+		private RequestQueue requestQueue;
+		private List<Sitio> listaSitios = new ArrayList<>();
+		private String nombre;
+		public SitioAsyncTask() {
+		}
+
+		@Override
+		protected void onPreExecute() {
+
+		}
+
+		@Override
+		protected Context doInBackground(String... string){
+			//asignamos valores al volley y a la queue.
+			mException=null;
+			volley = volleySingleton.getInstance(getActivity().getApplicationContext());
+			requestQueue = volley.getRequestQueue();
+			//llamamos a getSitios, donde obtenemos las cosas que necesitamos
+
+			try {
+				getSitios();
+
+			}catch (Exception e){
+				mException = e;
+			}
+
+			Context contexto = getActivity().getApplicationContext();
+			return contexto;
+
+		}
+
+		@Override
+		protected void onPostExecute(Context contexto){
+			//relleno
+
+			if (mException != null) {
+				Log.w(TAG, "Falló recuperar info de la base:");
+				mException.printStackTrace();
+				Toast.makeText(getActivity(),"No se cargaron lugares para función autoComplete",Toast.LENGTH_LONG).show();
+				return;
+			}
+		}
+
+		public void getSitios() {
+
+			String url = Constantes.GET_SITIOS2;
+			//creamos un object request, y lo añadimos a la cola
+			JsonObjectRequest request = new JsonObjectRequest
+					(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
+						@Override
+						public void onResponse(JSONObject response) {
+							//cuando obtenemos una respuesta, la procesamos
+							procesarRespuesta(response);
+						}
+					}, new Response.ErrorListener() {
+						@Override
+						public void onErrorResponse(VolleyError error) {
+							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error: "+ error,Toast.LENGTH_LONG).show();
+						}
+					});
+			addtoQueue(request);
+		}
+
+		private void procesarRespuesta(JSONObject response) {
+			try {
+				// Obtener atributo "estado"
+				String estado = response.getString("estado");
+				switch (estado) {
+					case "1": // EXITO
+						// Obtener array "sitios" Json
+						JSONArray arraySitios = response.getJSONArray("sitios");
+						// Parsear
+						for (int i = 0; i < arraySitios.length(); i++) {
+							//como se obtiene un arreglo, se guarda cada sitio en una lista
+							JSONObject sitio = (JSONObject) arraySitios.get(i);
+							//String nombre = sitio.getString("NOMBRE");
+							String nombreEdificio = sitio.getString("NOMBREEDIFICIO");
+							sitios.add(nombreEdificio);
+						}
+
+
+
+						break;
+					case "2": // FALLIDO
+						String mensaje2 = response.getString("mensaje");
+						Toast.makeText(getActivity().getApplicationContext(),"Lo sentimos, "+ mensaje2,Toast.LENGTH_LONG).show();
+						break;
+				}
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+
+		}
+
+
+		public void addtoQueue(Request request) {
+			if (request != null) {
+				request.setTag(this);
+				if (requestQueue == null)
+					requestQueue = volley.getRequestQueue();
+				request.setRetryPolicy(new DefaultRetryPolicy(
+						600000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+				));
+
+				requestQueue.add(request);
+			}
+		}
 	}
 }

@@ -55,8 +55,10 @@ import zero.ucamaps.database.Nota;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.dialogs.AboutDialog;
 import zero.ucamaps.dialogs.DialogFavoriteList;
+import zero.ucamaps.dialogs.DialogMenuList;
 import zero.ucamaps.dialogs.DialogNotesList;
 import zero.ucamaps.dialogs.DialogSearchForm;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -439,6 +441,31 @@ public class MainActivity extends ActionBarActivity {
 
         });
 
+        mDrawerItems.add(item);
+
+        //Añadiendo modulo de ayuda
+
+        LinearLayout ayuda = (LinearLayout) getLayoutInflater().inflate(R.layout.drawer_item_layout,null);
+        TextView text_ayuda = (TextView) ayuda.findViewById(R.id.drawer_item_textview);
+        ImageView icon_ayuda = (ImageView) ayuda.findViewById(R.id.drawer_item_icon);
+
+        text_ayuda.setText("Ayuda");
+        icon_ayuda.setImageResource(R.drawable.ic_help);
+        item = new DrawerItem(ayuda, new DrawerItem.OnClickListener() {
+            @Override
+            public void onClick() {
+
+                DialogMenuList menuList = new DialogMenuList();
+                menuList.setContexto(MainActivity.this);
+                menuList.setFragmento(mapFragment);
+                menuList.setManager(getFragmentManager());
+
+                menuList.show(getFragmentManager(), "Menu Ayuda");
+
+                mDrawerLayout.closeDrawers();
+
+            }
+        });
         mDrawerItems.add(item);
 
 

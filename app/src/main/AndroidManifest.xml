@@ -30,16 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        <!--   Este tambien lo quitamos
+            <!--
+               Este tambien lo quitamos
             <service
                android:name=".TTSService"
-               android:enabled="true" /> -->
-       </activity>
-       <activity android:name="com.google.zxing.client.android.CaptureActivity" />
-       <!--
+               android:enabled="true" />
+            -->
+        </activity>
+        <activity android:name="com.google.zxing.client.android.CaptureActivity" />
+        <!--
             ATTENTION: This was auto-generated to add Google Play services to your project for
             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-       -->
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -52,6 +54,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zero.ucamaps.MainActivity" />
         </activity>
+        <activity android:name=".adapterCarrusel.activityAyuda"></activity>
     </application>
 
 </manifest>

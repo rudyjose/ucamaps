@@ -16,12 +16,22 @@
         android:focusable="true"
         android:focusableInTouchMode="true"></LinearLayout>
 
-    <SearchView
+    <ImageView
+        android:id="@+id/lupasearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+
+        android:src="@drawable/ic_find_in_page_black_24dp" />
+
+    <AutoCompleteTextView
         android:id="@+id/searchView1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="7" >
-    </SearchView>
+    </AutoCompleteTextView>
+
 
     <ImageView
         android:id="@+id/imageView1"
