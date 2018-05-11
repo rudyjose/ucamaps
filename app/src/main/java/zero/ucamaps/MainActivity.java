@@ -58,7 +58,7 @@ import zero.ucamaps.dialogs.DialogFavoriteList;
 import zero.ucamaps.dialogs.DialogMenuList;
 import zero.ucamaps.dialogs.DialogNotesList;
 import zero.ucamaps.dialogs.DialogSearchForm;
-
+import zero.ucamaps.dialogs.DialogSearchPlace;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -412,6 +412,26 @@ public class MainActivity extends ActionBarActivity {
         });
 
         mDrawerItems.add(item);
+
+        LinearLayout consulta_edificio = (LinearLayout) getLayoutInflater().inflate(R.layout.drawer_item_layout, null);
+        TextView text_consulta_edificio = (TextView) consulta_edificio.findViewById(R.id.drawer_item_textview);
+        ImageView icon_consulta_edificio = (ImageView) consulta_edificio.findViewById(R.id.drawer_item_icon);
+
+        text_consulta_edificio.setText("Consulta Edificio");
+        icon_consulta_edificio.setImageResource(R.drawable.ic_findplace);
+        item= new DrawerItem(consulta_edificio, new DrawerItem.OnClickListener() {
+            @Override
+            public void onClick() {
+                DialogSearchPlace dlp = new DialogSearchPlace();
+                dlp.setMapFragment(mapFragment);
+                dlp.show(getFragmentManager(),"Dialog search place");
+                mDrawerLayout.closeDrawers();
+            }
+        });
+        mDrawerItems.add(item);
+
+
+
 
         // añandiendo el item de rutas favoritas
         LinearLayout notes = (LinearLayout) getLayoutInflater().inflate(R.layout.drawer_item_layout, null);

@@ -211,6 +211,10 @@
     <string name="error_nombre_igual_ruta">Los valores no estan permitidos.</string>
     <string name="opcion">opcion</string>
     <string name="ver">ver</string>
+    <string name="hint">hint</string>
+    <string name="title">title</string>
+    <string name="imgedificio">imgedificio</string>
+    <string name="iconolista">iconolista</string>
 
 
 </resources>
