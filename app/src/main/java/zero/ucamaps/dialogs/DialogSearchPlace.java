@@ -70,7 +70,7 @@ public class DialogSearchPlace extends DialogFragment {
                         } else {
 
 
-                            CargaBusquedaEdificio cb = new CargaBusquedaEdificio();
+                 /*           CargaBusquedaEdificio cb = new CargaBusquedaEdificio();
                             String busqueda = ((TextView) txtbox).getText().toString();
                             if (busqueda.equals("Plaza Central") ||
                                     busqueda.equals("plaza central") ||
@@ -86,6 +86,16 @@ public class DialogSearchPlace extends DialogFragment {
                             cb.setFm(getFragmentManager());
                             cb.execute(getActivity());
 
+
+*/
+                            listaEdificio.add(new Edificio("BIBLIOTECA","EDIFICIO PARA ESTUDIAR Y PRESTAR LIBROS","/ucamaps/imagenes/biblio.png"));
+
+//              SOLO PARA MOSTRAR LA SIGUIENTE PANTALLA POR EL MOMENTO QUE NO ESTÁ FUNCIONANDO EL SERVER
+                            DialogSearchResultEdificio d = new DialogSearchResultEdificio();
+                            d.setListaEdificio(listaEdificio);
+                            d.setContexto(getActivity());
+                            d.setMapFragment(mapFragment1);
+                            d.show(getFragmentManager(),"resultado");
 
                             vista.setVisibility(vista.GONE);
                             dismiss();

@@ -7,6 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,15 +40,13 @@ public class DialogSearchResultEdificio extends DialogFragment{
     public void setMapFragment(MapFragment mapFragment) {
         this.mapFragment = mapFragment;
     }
-
+/*
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         listaEdificio.add(new Edificio("BIBLIOTECA","EDIFICIO PARA ESTUDIAR Y PRESTAR LIBROS","/ucamaps/imagenes/biblio.png"));
 
-        if(listaEdificio.size()<1){
-            listaEdificio.add(new Edificio("BIBLIOTECA","EDIFICIO PARA ESTUDIAR Y PRESTAR LIBROS","/ucamaps/imagenes/biblio.png"));
-        }
+
 
 
         String[] listaEdificioString = new String[listaEdificio.size()];
@@ -67,6 +70,34 @@ public class DialogSearchResultEdificio extends DialogFragment{
         return builder.create();
 
 
+    }
+*/
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+}
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+      //  listaEdificio.add(new Edificio("BIBLIOTECA","EDIFICIO PARA ESTUDIAR Y PRESTAR LIBROS","/ucamaps/imagenes/biblio.png"));
+
+        final View vista = inflater.inflate(R.layout.edificio_search_result, container, false);
+        View titulo_busqueda = vista.findViewById(R.id.nombreEdificio);
+        View descripcion = vista.findViewById(R.id.description);
+        //FALTA SETEAR IMG
+
+
+        //Seteando vista
+        ((TextView) titulo_busqueda).setText(listaEdificio.get(0).getNombreEdificio().toString());
+        ((TextView)descripcion).setText(listaEdificio.get(0).getDescripcionEdificio().toString());
+
+
+
+
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        return vista;
     }
 
     public void setContexto(Context contexto) {
