@@ -34,15 +34,7 @@
             android:contentDescription="@string/ver"
             android:src="@drawable/ver" />
 
-        <ImageView
-            android:id="@+id/btn_back_ayuda_op"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="4"
-            android:layout_row="0"
-            android:layout_weight="0.16"
-            android:contentDescription="@android:string/cancel"
-            android:src="@drawable/ic_action_cancel" />
+
 
 
 

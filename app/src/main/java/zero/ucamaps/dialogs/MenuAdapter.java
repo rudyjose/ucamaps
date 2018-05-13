@@ -46,7 +46,7 @@ public class MenuAdapter extends ArrayAdapter<OpcionMenu> {
         }
         TextView titulo = (TextView) convertView.findViewById(R.id.tituloOpcionMenu);
         ImageView btn_ver = (ImageView) convertView.findViewById(R.id.btn_ver_ayuda_op);
-        ImageView btn_back = (ImageView) convertView.findViewById(R.id.btn_back_ayuda_op);
+       // ImageView btn_back = (ImageView) convertView.findViewById(R.id.btn_back_ayuda_op);
 
         // ver carrusel
         btn_ver.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +65,7 @@ public class MenuAdapter extends ArrayAdapter<OpcionMenu> {
         });
 
         //regresar
-        btn_back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                                dialmenu.dismiss();
-                            }
-                        });
 
-
-        titulo.setText(opcion.getTituloOpcion());
-        titulo.setTextColor(Color.rgb(25,25,112));
-        titulo.setTextSize(14f);
         return convertView;
     }
 

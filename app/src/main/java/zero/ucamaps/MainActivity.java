@@ -56,6 +56,7 @@ import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.dialogs.AboutDialog;
 import zero.ucamaps.dialogs.DialogFavoriteList;
 import zero.ucamaps.dialogs.DialogMenuList;
+import zero.ucamaps.dialogs.DialogMenuList2;
 import zero.ucamaps.dialogs.DialogNotesList;
 import zero.ucamaps.dialogs.DialogSearchForm;
 import zero.ucamaps.dialogs.DialogSearchPlace;
@@ -475,12 +476,15 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick() {
 
-                DialogMenuList menuList = new DialogMenuList();
-                menuList.setContexto(MainActivity.this);
-                menuList.setFragmento(mapFragment);
-                menuList.setManager(getFragmentManager());
+               // DialogMenuList menuList = new DialogMenuList();
+               // menuList.setContexto(MainActivity.this);
+               // menuList.setFragmento(mapFragment);
+               // menuList.setManager(getFragmentManager());
 
-                menuList.show(getFragmentManager(), "Menu Ayuda");
+               // menuList.show(getFragmentManager(), "Menu Ayuda");
+
+                DialogMenuList2 dml2 = new DialogMenuList2();
+                dml2.show(getFragmentManager(), "Menu Ayuda");
 
                 mDrawerLayout.closeDrawers();
 
