@@ -1423,6 +1423,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
         ImageView iv_info = (ImageView) mSearchResult.findViewById(R.id.info_place_button);
 
+        //Funcion para realizar un progress Dialog cuando se carga la informacion de los edificios
+
 		iv_info.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -1438,7 +1440,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						try {
 							while (progressDoalog.getProgress() <= progressDoalog
 									.getMax()) {
-								Thread.sleep(100);
+								Thread.sleep(50);
 								handle.sendMessage(handle.obtainMessage());
 								if (progressDoalog.getProgress() == progressDoalog
 										.getMax()) {

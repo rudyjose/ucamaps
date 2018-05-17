@@ -2,12 +2,13 @@
 
 buildscript {
     repositories {
-        mavenCentral()
+
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+
+        classpath 'com.android.tools.build:gradle:3.1.2'
         //No confundir la version del gradle con la version del plugin de android y en el caso de arriba se
         //coloca la version del plugin de android osea 3.1.1 porque es la ultima disponible que existe
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,6 +22,7 @@ allprojects {
 
         maven {
             url 'http://dl.bintray.com/esri/arcgis'
+
         }
 
         google()
