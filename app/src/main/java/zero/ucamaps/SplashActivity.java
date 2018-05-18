@@ -7,8 +7,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.felipecsl.gifimageview.library.GifImageView;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class SplashActivity extends Activity {
-    private final int DURACION_SPLASH = 1000;
+    private final int DURACION_SPLASH = 1500;
+
+    private GifImageView gifImageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,6 +27,17 @@ public class SplashActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
+
+        gifImageView = (GifImageView)findViewById(R.id.gifImageView);
+
+        try{
+            InputStream inputStream = getAssets().open("imagensplashanim.gif");
+            byte[] bytes= IOUtils.toByteArray(inputStream);
+            gifImageView.setBytes(bytes);
+            gifImageView.startAnimation();
+        }catch (IOException ex){
+
+        }
 
         new Handler().postDelayed(new Runnable(){
             public void run(){

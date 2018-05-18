@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- VERSION PARA COLOCAR SPLASH ESTATICO
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
+    tools:context='dev.edmt.gifsplashscreen.SplashScreen">
 
-    <ImageView
+   <ImageView
         android:id="@+id/ivSplash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-
         android:background="@drawable/imagensplash" />
 
+-->
+<!-- VERSION PARA COLOCAR UN SPLASH ANIMADO-->
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        tools:context="dev.edmt.gifsplashscreen.SplashScreen">
+
+    <com.felipecsl.gifimageview.library.GifImageView
+        android:id="@+id/gifImageView"
+        android:scaleType="fitXY"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         />
 
 </RelativeLayout>
