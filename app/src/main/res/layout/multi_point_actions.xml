@@ -7,28 +7,30 @@
     android:orientation="horizontal"
     android:padding="5dp" >
 
-<ImageView
+    <ImageView
         android:id="@+id/imageReturn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:contentDescription="Button to undo last point"
-        android:src="@drawable/ic_undo_black_24dp"
-        android:layout_weight="1" />
+        android:src="@drawable/ic_undo_black_24dp" />
+
     <ImageView
         android:id="@+id/imageSave"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:contentDescription="Button to route given points"
-        android:src="@drawable/ic_routing_take_center_fork"
-        android:layout_weight="1" />
+        android:src="@drawable/ic_routing_take_center_fork" />
+
     <ImageView
         android:id="@+id/imageQuit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:contentDescription="Button to exit edit mode"
-        android:src="@drawable/ic_action_cancel"
-        android:layout_weight="1" />
+        android:src="@drawable/ic_action_cancel" />
 </LinearLayout>

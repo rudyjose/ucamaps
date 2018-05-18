@@ -84,7 +84,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:contentDescription="@string/icon_for_directions_and_routing"
-        android:src="@drawable/ic_routing_take_center_fork" />
+        android:src="@drawable/ic_loc_directions" />
 
     <ImageView
         android:layout_width="wrap_content"

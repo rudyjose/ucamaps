@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingRight="10dp"
+
     android:orientation="horizontal">
 
     <TextView
@@ -21,6 +23,7 @@
         android:layout_width="65dp"
         android:layout_height="42dp"
         android:layout_weight="1"
+
         android:contentDescription="@string/abc_toolbar_collapse_description"
         android:src="@drawable/ic_action_cancel" />
 

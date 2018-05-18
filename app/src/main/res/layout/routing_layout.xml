@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:weightSum="1"
     android:minHeight="150dp"
     android:minWidth="400dp"
@@ -56,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/swap_addresses"
-                android:src="@drawable/ic_action_revert"
+                android:src="@drawable/direction"
                 android:minWidth="90dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
@@ -69,12 +71,13 @@
 
     <Button
         android:id="@+id/getRouteButton"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_floating_material_dark"
+        android:layout_gravity="center_horizontal"
+
         android:padding="5dp"
         android:text="@string/get_route"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/abc_primary_text_material_dark" />
+        />
 
 </LinearLayout>

@@ -17,9 +17,8 @@
         android:id="@+id/textView"
         android:layout_weight="0.20"
         style="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle"
-        android:autoText="false"
-        android:background="@color/background_material_dark"
-        android:textColor="@color/abc_primary_text_material_dark"
+        android:background="@color/abc_background_cache_hint_selector_material_light"
+        android:textColor="@color/abc_search_url_text_normal"
         android:elegantTextHeight="false"
         android:textAlignment="center"
         android:gravity="center" />
@@ -38,14 +37,14 @@
 
         <EditText
             android:id="@+id/nombre_ruta_favorita"
-            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="0.04" />
+            android:layout_marginTop="16dp"
+            android:layout_weight="0.04"
+            android:inputType="text" />
     </LinearLayout>
 
     <!--android:hint="@string/username"-->

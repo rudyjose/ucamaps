@@ -11,7 +11,7 @@
         android:title="@string/edit_mode_option"/>
     <item
         android:id="@+id/location"
-        android:icon="@android:drawable/ic_menu_mylocation"
+        android:icon="@drawable/ic_compass"
         app:showAsAction="always"
         android:gravity="right"
         android:title="@string/action_location"/>

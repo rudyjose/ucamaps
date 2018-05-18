@@ -6,21 +6,25 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-
-    <ImageView
-        android:id="@+id/imageViewEdificio"
-        android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:layout_weight="0.1"
-        android:contentDescription="@string/iconolista"
-        android:src="@drawable/ic_lista2" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/titulo_formulario"
+        android:background="#1A5276"
+        android:textColor="@color/esri_white"
+        android:shadowColor="@color/background_material_dark"
         android:layout_weight="0.1" />
+
+    <ImageView
+        android:id="@+id/imageViewEdificio"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_weight="0.1"
+        android:contentDescription="@string/iconolista"
+        android:src="@drawable/ic_lista2" />
+
+
 
 
 
@@ -29,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:fontFamily="Verdana"
         android:text="Ingrese lo que busca:"
         android:id="@+id/txt_ingrese"
         android:layout_weight="0.05" />
@@ -37,13 +42,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/box_ingrese"
-        android:layout_weight="0.05" />
+        android:fontFamily="Verdana"
+        android:layout_weight="0.1" />
 
     <Button
         android:id="@+id/btn_buscar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
         android:layout_weight="0.1"
         android:text="New Button" />
 </LinearLayout>
