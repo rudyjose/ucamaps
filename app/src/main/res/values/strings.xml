@@ -215,6 +215,7 @@
     <string name="title">title</string>
     <string name="imgedificio">imgedificio</string>
     <string name="iconolista">iconolista</string>
+    <string name="rutas_favoritos">Rutas Favoritas</string>
 
 
 </resources>
