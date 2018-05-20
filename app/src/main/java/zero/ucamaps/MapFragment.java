@@ -56,6 +56,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -762,6 +763,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		// Launch a DirectionsListFragment to display list of directions
 		final DirectionsDialogFragment frag = new DirectionsDialogFragment();
 
+
 		frag.setRoutingDirections(mRoutingDirections,
 				new DirectionsDialogListener() {
 
@@ -769,6 +771,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					public void onDirectionSelected(int position) {
 						// User has selected a particular direction dismiss the dialog and zoom to the selected direction
 						frag.dismiss();
+						Toast.makeText(getActivity(),String.valueOf(mRoutingDirections.size()),Toast.LENGTH_SHORT).show();
+						Integer tamanio=mRoutingDirections.size();
 						RouteDirection direction = mRoutingDirections.get(position);
 						String text = mRoutingDirections.get(position).getText(); //getting the direction
 						mMapView.setExtent(direction.getGeometry());
@@ -776,6 +780,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						if (mSoundActive.equals("Sonido Encendido")) {
 							Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 							ttsManager.initQueue(text);
+
+
+
 						}
 					}
 
@@ -1279,7 +1286,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				// Remove the search result view
-				mMapContainer.removeView(mEditMenu);
+				mMapContainer.removeView(mEditMenu);	//REMUEVE BARRA DE EDICION
 				// Add the search box view
 				showSearchBoxLayout();
 				// Remove all graphics from the map
@@ -1524,6 +1531,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				// Remove the search result view
+				mMapContainer.removeView(mEditMenu);
 				mMapContainer.removeView(mSearchResult);
 				// Add the default search box view
 				showSearchBoxLayout();

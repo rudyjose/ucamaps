@@ -216,6 +216,9 @@
     <string name="imgedificio">imgedificio</string>
     <string name="iconolista">iconolista</string>
     <string name="rutas_favoritos">Rutas Favoritas</string>
+    <string name="modo_guiado">Modo Guiado</string>
+    <string name="no">No</string>
+    <string name="si">SI</string>
 
 
 </resources>
