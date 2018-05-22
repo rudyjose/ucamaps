@@ -54,6 +54,7 @@ public class DialogNotesList extends DialogFragment{
         adaptador.setManager(manager);
         lista.setAdapter(adaptador);
         getDialog().setTitle("Anotaciones");
+
         return  lista;
 
 

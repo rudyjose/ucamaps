@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,8 +55,18 @@ public class DialogFavoriteList extends DialogFragment {
 
         FavoritesAdapter adapter = new FavoritesAdapter(getActivity(), listaRutasString, listaRutas);
 
+        TextView title = new TextView(getActivity());
+        title.setTextColor(Color.parseColor("#ffffff") );
+        title.setBackgroundColor(Color.parseColor("#2471A3"));
+        title.setShadowLayer(0,10,10,Color.parseColor("#C4C4C4"));
+        title.setText("Rutas Favoritas");
+        title.setTextSize(20);
+        title.setPadding(10,5,0,0);
         builder.setView(inflater.inflate(R.layout.favorites, null))
                 .setTitle("Rutas Favoritas")
+                .setCancelable(true)
+                .setIcon(R.drawable.ic_star_black_24dp)
+                .setCustomTitle(title)
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

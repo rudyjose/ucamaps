@@ -14,6 +14,8 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name ="colorPrimary">#283d4b</item>
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
@@ -78,7 +80,7 @@
         <item name="android:paddingRight">@dimen/basemap_grid_item_title_padding_right</item>
         <item name="android:paddingBottom">@dimen/basemap_grid_item_title_vertical_padding</item>
         <item name="android:textColor">@color/primary_text_color</item>
-        <item name="android:textSize">@dimen/basemap_grid_item_title_text_size</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <!-- Generic styles -->

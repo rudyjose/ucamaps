@@ -264,6 +264,8 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_drawer_basemap = (ImageView) view_basemap.findViewById(R.id.drawer_item_icon);
 
         text_drawer_basemap.setText(getString(R.string.menu_basemaps));
+        text_drawer_basemap.setTextColor(Color.parseColor("#2471A3") );
+      //  text_drawer_basemap.setShadowLayer(30,0,0,Color.parseColor("#f2f2f2"));
         icon_drawer_basemap.setImageResource(R.drawable.action_map);
         item = new DrawerItem(view_basemap, new DrawerItem.OnClickListener() {
 
@@ -293,6 +295,8 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_drawer_qr = (ImageView) view_qr.findViewById(R.id.drawer_item_icon);
 
         text_drawer_qr.setText(getString(R.string.action_qr));
+        text_drawer_qr.setTextColor(Color.parseColor("#2471A3") );
+      //  text_drawer_qr.setShadowLayer(30,0,0,Color.parseColor("#f2f2f2"));
         icon_drawer_qr.setImageResource(R.drawable.action_qr_code);
         item = new DrawerItem(view_qr, new DrawerItem.OnClickListener() {
 
@@ -318,6 +322,8 @@ public class MainActivity extends ActionBarActivity {
             text_drawer_sound.setText(getString(R.string.action_sound_2));
         }
 
+        text_drawer_sound.setTextColor(Color.parseColor("#2471A3") );
+       // text_drawer_sound.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_drawer_sound.setImageResource(R.drawable.action_sound);
 
         item = new DrawerItem(view_sound, new DrawerItem.OnClickListener() {
@@ -349,6 +355,9 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_favorites = (ImageView) favorites.findViewById(R.id.drawer_item_icon);
 
         text_favorites.setText("Rutas Favoritas");
+        text_favorites.setTextColor(Color.parseColor("#2471A3") );
+      //  text_favorites.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
+      //  text_favorites.setBackgroundColor(Color.parseColor("#2471A3"));
         icon_favorites.setImageResource(R.drawable.ic_star_black_24dp);
         item = new DrawerItem(favorites, new DrawerItem.OnClickListener() {
 
@@ -379,6 +388,8 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_specials = (ImageView) specials.findViewById(R.id.drawer_item_icon);
 
         text_specials.setText("Rutas Especiales");
+        text_specials.setTextColor(Color.parseColor("#2471A3") );
+       // text_specials.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_specials.setImageResource(R.drawable.ic_business_black_24dp);
         item = new DrawerItem(specials, new DrawerItem.OnClickListener() {
 
@@ -399,6 +410,8 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_search = (ImageView) advanced_search.findViewById(R.id.drawer_item_icon);
 
         text_search.setText("Busqueda Avanzada");
+        text_search.setTextColor(Color.parseColor("#2471A3") );
+      //  text_search.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_search.setImageResource(R.drawable.ic_find_in_page_black_24dp);
         item = new DrawerItem(advanced_search, new DrawerItem.OnClickListener() {
 
@@ -419,6 +432,8 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_consulta_edificio = (ImageView) consulta_edificio.findViewById(R.id.drawer_item_icon);
 
         text_consulta_edificio.setText("Consulta Edificio");
+        text_consulta_edificio.setTextColor(Color.parseColor("#2471A3") );
+      //  text_consulta_edificio.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_consulta_edificio.setImageResource(R.drawable.ic_findplace);
         item= new DrawerItem(consulta_edificio, new DrawerItem.OnClickListener() {
             @Override
@@ -440,6 +455,9 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_notes = (ImageView) notes.findViewById(R.id.drawer_item_icon);
 
         text_notes.setText("Anotaciones");
+        text_notes.setTextColor(Color.parseColor("#2471A3") );
+     //   text_notes.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
+
         icon_notes.setImageResource(R.drawable.ic_book_black_24dp);
         item = new DrawerItem(notes, new DrawerItem.OnClickListener() {
 
@@ -471,6 +489,9 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_ayuda = (ImageView) ayuda.findViewById(R.id.drawer_item_icon);
 
         text_ayuda.setText("Ayuda");
+        text_ayuda.setTextColor(Color.parseColor("#2471A3") );
+      //  text_ayuda.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
+
         icon_ayuda.setImageResource(R.drawable.ic_help);
         item = new DrawerItem(ayuda, new DrawerItem.OnClickListener() {
             @Override
@@ -519,6 +540,9 @@ public class MainActivity extends ActionBarActivity {
         ImageView icon_drawer_about = (ImageView) view_about.findViewById(R.id.drawer_item_icon);
 
         text_drawer_about.setText(getString(R.string.action_about));
+        text_drawer_about.setTextColor(Color.parseColor("#2471A3") );
+     //   text_drawer_about.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
+
         icon_drawer_about.setImageResource(R.drawable.action_about);
         item = new DrawerItem(view_about, new DrawerItem.OnClickListener() {
 
