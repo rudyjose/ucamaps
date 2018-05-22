@@ -779,19 +779,42 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						//String txt=mRoutingDirections.get(i).getText(); //getting the direction
 						//mMapView.setExtent(direction.getGeometry());
 						//Reads the direction with sound
-						if (mSoundActive.equals("Sonido Encendido")) {
+						if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
 
 							for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
 								direction = mRoutingDirections.get(i);
 								text = mRoutingDirections.get(i).getText(); //getting the direction
-								mMapView.setExtent(direction.getGeometry());
-								Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-								ttsManager.initQueue(text);
-
+                                mostrar(direction,text, i);
+                                /*Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+                                if(i==0)
+                                    ttsManager.initQueue(text);
+                                else
+                                    ttsManager.addQueue(text);
+                                mMapView.setExtent(direction.getGeometry());
+                                showDirectionsDialogFragment();
+                            */
 							}
-
+                            frag.dismiss();
 						}
 					}
+
+
+					public void mostrar(RouteDirection direction, String text, int i){
+                        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+                        if(i==0)
+                            ttsManager.initQueue(text);
+                        else
+                            ttsManager.addQueue(text);
+                        mMapView.setExtent(direction.getGeometry());
+                      //  showDirectionsDialogFragment();
+
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
 
 				});
 		getFragmentManager().beginTransaction().add(frag, null).commit();
