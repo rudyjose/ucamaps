@@ -773,15 +773,22 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						frag.dismiss();
 						Toast.makeText(getActivity(),String.valueOf(mRoutingDirections.size()),Toast.LENGTH_SHORT).show();
 						Integer tamanio=mRoutingDirections.size();
-						RouteDirection direction = mRoutingDirections.get(position);
-						String text = mRoutingDirections.get(position).getText(); //getting the direction
-						mMapView.setExtent(direction.getGeometry());
+						RouteDirection direction;
+						//RouteDirection direction=mRoutingDirections.get(position);
+						String text;
+						//String txt=mRoutingDirections.get(i).getText(); //getting the direction
+						//mMapView.setExtent(direction.getGeometry());
 						//Reads the direction with sound
 						if (mSoundActive.equals("Sonido Encendido")) {
-							Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-							ttsManager.initQueue(text);
 
+							for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
+								direction = mRoutingDirections.get(i);
+								text = mRoutingDirections.get(i).getText(); //getting the direction
+								mMapView.setExtent(direction.getGeometry());
+								Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+								ttsManager.initQueue(text);
 
+							}
 
 						}
 					}
