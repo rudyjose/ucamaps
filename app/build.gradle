@@ -66,6 +66,7 @@ dependencies {
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
+    //Librerias para poder utilizar gif
     implementation 'com.felipecsl:gifimageview:2.1.0'
     implementation 'commons-io:commons-io:2.4'
 

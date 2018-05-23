@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SplashActivity extends Activity {
-    private final int DURACION_SPLASH = 1500;
+    private final int DURACION_SPLASH = 2000;
 
     private GifImageView gifImageView;
 
@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
         gifImageView = (GifImageView)findViewById(R.id.gifImageView);
 
         try{
-            InputStream inputStream = getAssets().open("imagensplashanim.gif");
+            InputStream inputStream = getAssets().open("imagensplashanim3.gif");
             byte[] bytes= IOUtils.toByteArray(inputStream);
             gifImageView.setBytes(bytes);
             gifImageView.startAnimation();
