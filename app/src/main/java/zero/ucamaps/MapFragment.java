@@ -56,6 +56,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -249,6 +250,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private LayoutInflater mInflater;
 	private String mStartLocation, mEndLocation;
 	private  List<String> sitios;
+	private static boolean guiadoEstado = false;
 
 	public LocationManager locationManager;
 
@@ -755,12 +757,78 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	}
 
+	public void mostrarSecuenciaInstruccion(RouteDirection direction, String text, int i){
+		Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+		if(i==0)
+			ttsManager.initQueue(text);
+		else
+			ttsManager.addQueue(text);
+		mMapView.setExtent(direction.getGeometry());
+		//  showDirectionsDialogFragment();
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void modoGuiado(){
+
+		Integer tamanio=mRoutingDirections.size();
+		RouteDirection direction;
+		String text;
+		if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
+
+			for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
+				direction = mRoutingDirections.get(i);
+				text = mRoutingDirections.get(i).getText(); //getting the direction
+				mostrarSecuenciaInstruccion(direction,text, i);
+			}
+
+		}
+
+
+	}
+
+	public void alertaModoGuiado(){
+		if(!guiadoEstado) {
+			final AlertDialog.Builder builderGuiado = new AlertDialog.Builder(getActivity());
+			builderGuiado.setMessage("¿Cómo te gustaría recibir las instrucciones?")
+					.setCancelable(false)
+					.setTitle("Ruta a Seguir")
+					.setIcon(R.drawable.nogps)
+					.setPositiveButton("Pasos y Más", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+							guiadoEstado=true;
+							showDirectionsDialogFragment();
+						}
+					})
+					.setNegativeButton("Modo Guiado", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+							guiadoEstado=false;
+							dialog.cancel();
+							modoGuiado();
+						}
+					});
+			alert = builderGuiado.create();
+			alert.show();
+		}else{
+			showDirectionsDialogFragment();
+		}
+	}
+
 	/**
 	 * Displays the Directions Dialog Fragment
 	 */
 	private void showDirectionsDialogFragment() {
 		// Launch a DirectionsListFragment to display list of directions
+
 		final DirectionsDialogFragment frag = new DirectionsDialogFragment();
+
 
 		frag.setRoutingDirections(mRoutingDirections,
 				new DirectionsDialogListener() {
@@ -769,15 +837,24 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					public void onDirectionSelected(int position) {
 						// User has selected a particular direction dismiss the dialog and zoom to the selected direction
 						frag.dismiss();
-						RouteDirection direction = mRoutingDirections.get(position);
-						String text = mRoutingDirections.get(position).getText(); //getting the direction
+						//Toast.makeText(getActivity(),String.valueOf(mRoutingDirections.size()),Toast.LENGTH_SHORT).show();
+						Integer tamanio=mRoutingDirections.size();
+						RouteDirection direction=mRoutingDirections.get(position);
+						String txt=mRoutingDirections.get(position).getText(); //getting the direction
 						mMapView.setExtent(direction.getGeometry());
 						//Reads the direction with sound
-						if (mSoundActive.equals("Sonido Encendido")) {
-							Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-							ttsManager.initQueue(text);
+						if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
+						      Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
+							//Toast.makeText(getActivity(),String.valueOf(position) +":"+String.valueOf(tamanio),Toast.LENGTH_SHORT).show();
+						      if(position == (tamanio - 1)){
+						      	guiadoEstado=false;
+							  }
+                              ttsManager.initQueue(txt);
+
+							}
+
 						}
-					}
+
 
 				});
 		getFragmentManager().beginTransaction().add(frag, null).commit();
@@ -1279,7 +1356,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				// Remove the search result view
-				mMapContainer.removeView(mEditMenu);
+				mMapContainer.removeView(mEditMenu);	//REMUEVE BARRA DE EDICION
 				// Add the search box view
 				showSearchBoxLayout();
 				// Remove all graphics from the map
@@ -1524,6 +1601,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				// Remove the search result view
+				mMapContainer.removeView(mEditMenu);
 				mMapContainer.removeView(mSearchResult);
 				// Add the default search box view
 				showSearchBoxLayout();
@@ -1572,7 +1650,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
-				showDirectionsDialogFragment();
+				//showDirectionsDialogFragment();
+				alertaModoGuiado();
 			}
 		});
 

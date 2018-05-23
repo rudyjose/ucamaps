@@ -8,6 +8,7 @@
 
     <ListView
         android:id="@+id/lista_favoritos"
+        style="@android:style/Holo.ButtonBar.AlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
