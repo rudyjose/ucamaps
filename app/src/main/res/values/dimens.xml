@@ -68,5 +68,6 @@
 
     <dimen name="standard_padding">8dip</dimen>
     <dimen name="half_padding">4dip</dimen>
+    <dimen name="modo_guiado">3dp</dimen>
 
 </resources>
