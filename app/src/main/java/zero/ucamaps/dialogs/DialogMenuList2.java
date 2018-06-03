@@ -44,6 +44,7 @@ public class DialogMenuList2 extends DialogFragment {
         listaOpcionMenus.add("Consultando anotaciones");
         listaOpcionMenus.add("Guardando Rutas favoritas");
         listaOpcionMenus.add("Consultando Rutas favoritas");
+        listaOpcionMenus.add("Información de Edificio");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();

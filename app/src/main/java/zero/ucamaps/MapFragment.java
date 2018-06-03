@@ -149,7 +149,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private volleySingleton volley;
 	private RequestQueue requestQueue;
 
-
+	public int contadorGpsAlert = 0;
 	private static final String KEY_BASEMAP_ITEM = "KEY_BASEMAP_ITEM";
     private static final String KEY_SOUND_ITEM = "KEY_SOUND_ITEM";
 	private static final String KEY_IS_LOCATION_TRACKING = "IsLocationTracking";
@@ -251,6 +251,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private String mStartLocation, mEndLocation;
 	private  List<String> sitios;
 	private static boolean guiadoEstado = false;
+	private static boolean banderaFin=false;
+	private static boolean banderaEdicion = false;
 
 	public LocationManager locationManager;
 
@@ -354,6 +356,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				return true;
 			case R.id.editMode:
 				if(!editMode){
+					banderaEdicion=true;
 					this.editMode = true;
 					this.showBar = false;
 					this.editButton = item;
@@ -752,6 +755,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		if (mLocationLayerPoint != null) {
 			arguments.putString(RoutingDialogFragment.ARG_END_POINT_DEFAULT, mLocationLayerPointString);
 		}
+
 		routingFrag.setArguments(arguments);
 		routingFrag.show(getFragmentManager(), null);
 
@@ -766,8 +770,11 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		mMapView.setExtent(direction.getGeometry());
 		//  showDirectionsDialogFragment();
 
+		//if(banderaFin) return;
+
 		try {
 			Thread.sleep(5000);
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -784,7 +791,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
 				direction = mRoutingDirections.get(i);
 				text = mRoutingDirections.get(i).getText(); //getting the direction
+
 				mostrarSecuenciaInstruccion(direction,text, i);
+
 			}
 
 		}
@@ -792,7 +801,15 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 	}
 
-	public void alertaModoGuiado(){
+
+
+	public void alertaModoPasos(){
+			showDirectionsDialogFragment();
+
+	}
+
+
+	public void alertaModoGuiadoPasos(){
 		if(!guiadoEstado) {
 			final AlertDialog.Builder builderGuiado = new AlertDialog.Builder(getActivity());
 			builderGuiado.setMessage("¿Cómo te gustaría recibir las instrucciones?")
@@ -820,6 +837,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			showDirectionsDialogFragment();
 		}
 	}
+
 
 	/**
 	 * Displays the Directions Dialog Fragment
@@ -931,6 +949,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
+				banderaEdicion=false;
 				showRoutingDialogFragment();
 			}
 		});
@@ -1031,7 +1050,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 				} else {
 					wgspoint = new Point(lMapa.getLatitude(),lMapa.getLongitude());
-					Toast.makeText(getActivity(), "Te encuentras fuera de los limites de la UCA, pero puedes hacer uso de la app.", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "Te encuentras fuera de los limites de la UCA, pero puedes hacer uso de la app.", Toast.LENGTH_SHORT).show();
 				}
 				//Toast.makeText(getActivity(),String.valueOf(distanceInMeters)+" mts", Toast.LENGTH_SHORT).show();
 
@@ -1055,7 +1074,10 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				}
 				Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
 				if(gpsActive.equals("OFF")) {
-					alertNoGps(getActivity());
+					if(contadorGpsAlert < 3) {
+						contadorGpsAlert = contadorGpsAlert + 1;
+						alertNoGps(getActivity());
+					}
 				}
 			}
 
@@ -1402,6 +1424,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				if(editPoints >= 2) {
+					guiadoEstado=true;
 					// Remove the search result view
 					editMarkers.clear();
 					editMarkerNames.clear();
@@ -1600,6 +1623,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
+				//banderaFin=true;
 				// Remove the search result view
 				mMapContainer.removeView(mEditMenu);
 				mMapContainer.removeView(mSearchResult);
@@ -1651,7 +1675,13 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				//showDirectionsDialogFragment();
-				alertaModoGuiado();
+				if(banderaEdicion){
+					alertaModoPasos();
+
+				}else{
+
+					alertaModoGuiadoPasos();
+				}
 			}
 		});
 

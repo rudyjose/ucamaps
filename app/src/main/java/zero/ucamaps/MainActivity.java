@@ -70,6 +70,7 @@ public class MainActivity extends ActionBarActivity {
     public CargaAsinc ca = new CargaAsinc();
 
     AlertDialog alert = null;
+    public int contadorAlerta=0;
 
 
     MapFragment mapFragment;
@@ -121,7 +122,10 @@ public class MainActivity extends ActionBarActivity {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if ( !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            mapFragment.alertNoGps(this);
+            contadorAlerta = contadorAlerta +1;
+            if(contadorAlerta < 3) {
+                mapFragment.alertNoGps(this);
+            }
         }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
