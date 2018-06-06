@@ -6,6 +6,7 @@ public class Edificio {
     private String descripcionEdificio;
     private String rutaImg;
 
+
     public Edificio(){
 
     }

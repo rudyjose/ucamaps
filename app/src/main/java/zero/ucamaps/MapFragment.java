@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,10 +21,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -37,7 +34,6 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.support.v4.view.GravityCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,9 +50,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,10 +69,8 @@ import com.esri.android.map.event.OnPinchListener;
 import com.esri.android.map.event.OnStatusChangedListener;
 
 import zero.ucamaps.beans.MapPoint;
-import zero.ucamaps.database.CargaAsinc;
 import zero.ucamaps.database.CargaDetalles;
 import zero.ucamaps.database.Constantes;
-import zero.ucamaps.database.DetalleEdificio;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.database.Sitio;
 import zero.ucamaps.database.volleySingleton;
@@ -93,17 +84,14 @@ import zero.ucamaps.location.RoutingDialogFragment;
 import zero.ucamaps.location.RoutingDialogFragment.RoutingDialogListener;
 import zero.ucamaps.tools.Compass;
 import zero.ucamaps.tts.TTSManager;
-import zero.ucamaps.dialogs.DialogInfoPlaces;
 import zero.ucamaps.util.GlobalPoints;
 import zero.ucamaps.util.TaskExecutor;
 
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.LinearUnit;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.geometry.Unit;
@@ -111,7 +99,6 @@ import com.esri.core.map.Graphic;
 import com.esri.core.portal.BaseMap;
 import com.esri.core.portal.Portal;
 import com.esri.core.portal.WebMap;
-import com.esri.core.symbol.CompositeSymbol;
 import com.esri.core.symbol.FontDecoration;
 import com.esri.core.symbol.FontStyle;
 import com.esri.core.symbol.FontWeight;
@@ -130,15 +117,12 @@ import com.esri.core.tasks.na.RouteParameters;
 import com.esri.core.tasks.na.RouteResult;
 import com.esri.core.tasks.na.RouteTask;
 import com.esri.core.tasks.na.StopGraphic;
-import com.google.zxing.client.android.camera.CameraConfigurationUtils;
 
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Implements the view that shows the map.
@@ -787,14 +771,21 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		RouteDirection direction;
 		String text;
 		if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
+			int i=0;
 
-			for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
+			while(i< tamanio){
+				//if(banderaFin) break;
 				direction = mRoutingDirections.get(i);
 				text = mRoutingDirections.get(i).getText(); //getting the direction
 
 				mostrarSecuenciaInstruccion(direction,text, i);
+				i++;
+
 
 			}
+
+
+
 
 		}
 
@@ -900,40 +891,20 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 		//Creando arreglo de datos (SITIOS) para opciones del autoComplete
 
-		// TENGO QUE HACER LLAMA AL WEB SERVICE PARA CARGAR TODOS LOS SITIOS
+		// TENGO QUE HACER LLAMADA AL WEB SERVICE PARA CARGAR TODOS LOS SITIOS
 		//AGREGARLOS AL ARREGLO sitios.
-		//sitios= new ArrayList<>();
-		//new SitiosAsyncTask();
-
-
-		//Locator SitioAsyncTask lapt = new Locator SitioAsyncTask();
-		//		lapt.execute("sitios");
-
-
-		//EJEMPLO PARA EL AUTOCOMPLETE CON DATOS QUEMADOS
+		sitios= new ArrayList<>();
 		List<String>sitios2 = new ArrayList<>();
 
-		sitios2.add("CAFETERIA");
-		sitios2.add("EDIFICIO A");
-		sitios2.add("EDIFICIO B");
-		sitios2.add("ICAS");
-		sitios2.add("CUBICULO MATE");
-		sitios2.add("BIBLIOTECA");
-		sitios2.add("DEI");
-		sitios2.add("DEPARTAMENTO MATE");
+		new SitioAsyncTask().execute(sitios);
+
+
+
 		//validar que la lista de sitios que se obtuvo de la base no esté vacía
-		//if(sitios.isEmpty() && sitios.size()>0){
-		//entonces se puede usar en el adaptador o poner una quemada
-
-		//	sitios = sitios2;
-
-		//}
-
-
 
 
 		final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) mSearchBox.findViewById(R.id.searchView1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sitios2);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sitios);
 		//autoCompleteTextView.setLines(1);
 
 		autoCompleteTextView.setAdapter(adapter);
@@ -1522,46 +1493,24 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		});
 
         ImageView iv_info = (ImageView) mSearchResult.findViewById(R.id.info_place_button);
+        iv_info.setOnClickListener(new OnClickListener() {
 
-        //Funcion para realizar un progress Dialog cuando se carga la informacion de los edificios
+            @Override
+            public void onClick(View v) {
+                //if(TheresAPlace) {
+                    //DialogFragment newFragment = new DialogInfoPlaces();
+                    //newFragment.show(getFragmentManager(), "Información");
+                TextView barra_busqueda = (TextView) getActivity().findViewById(R.id.textView1);
+				ProgressDialog progress = new ProgressDialog(getActivity());
+				CargaDetalles cd = new CargaDetalles();
+                cd.fm = getFragmentManager();
+				cd.setNombreEdificio(barra_busqueda.getText().toString());
+				Log.d("Esto tiene la barra",barra_busqueda.getText().toString());
+                Toast.makeText(getActivity(), "Cargando Informacion...",Toast.LENGTH_SHORT).show();
+                cd.execute(getActivity());
 
-		iv_info.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				progressDoalog = new ProgressDialog(getActivity());
-				progressDoalog.setMax(100);
-				progressDoalog.setMessage("cargando....");
-				progressDoalog.setTitle("Estamos obteniendo la información");
-				progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				progressDoalog.show();
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							while (progressDoalog.getProgress() <= progressDoalog
-									.getMax()) {
-								Thread.sleep(50);
-								handle.sendMessage(handle.obtainMessage());
-								if (progressDoalog.getProgress() == progressDoalog
-										.getMax()) {
-									progressDoalog.dismiss();
-								}
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}).start();
-			}
-
-			Handler handle = new Handler() {
-				@Override
-				public void handleMessage(Message msg) {
-					super.handleMessage(msg);
-					progressDoalog.incrementProgressBy(1);
-				}
-			};
-		});
+            }
+        });
 
 		// Add the compass after getting the height of the layout
 		mSearchResult.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -1623,7 +1572,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
-				//banderaFin=true;
+				banderaFin=true;
 				// Remove the search result view
 				mMapContainer.removeView(mEditMenu);
 				mMapContainer.removeView(mSearchResult);
@@ -2388,15 +2337,27 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		onGetRoute(getString(R.string.my_location), mLocationLayerPointString);
 	}
 
-	private class SitioAsyncTask extends AsyncTask<String,Void,Context>{
+
+
+	private class SitioAsyncTask extends AsyncTask<List<String>, Void, List<String>>{
 
 		private Exception mException;
 
 		private volleySingleton volley;
 		private RequestQueue requestQueue;
-		private List<Sitio> listaSitios = new ArrayList<>();
-		private String nombre;
-		public SitioAsyncTask() {
+		private List<String> listaSitios1 = new ArrayList<>();
+
+		@Override
+		protected List<String> doInBackground(List<String>... lists) {
+			//asignamos valores al volley y a la queue.
+			mException=null;
+			volley = volleySingleton.getInstance(getActivity().getApplicationContext());
+			requestQueue = volley.getRequestQueue();
+			//llamamos a getSitios, donde obtenemos las cosas que necesitamos
+
+			getSitios();
+
+			return listaSitios1;
 		}
 
 		@Override
@@ -2404,36 +2365,11 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 		}
 
-		@Override
-		protected Context doInBackground(String... string){
-			//asignamos valores al volley y a la queue.
-			mException=null;
-			volley = volleySingleton.getInstance(getActivity().getApplicationContext());
-			requestQueue = volley.getRequestQueue();
-			//llamamos a getSitios, donde obtenemos las cosas que necesitamos
 
-			try {
-				getSitios();
 
-			}catch (Exception e){
-				mException = e;
-			}
 
-			Context contexto = getActivity().getApplicationContext();
-			return contexto;
+		protected void onPostExecute(List<String> list){
 
-		}
-
-		@Override
-		protected void onPostExecute(Context contexto){
-			//relleno
-
-			if (mException != null) {
-				Log.w(TAG, "Falló recuperar info de la base:");
-				mException.printStackTrace();
-				Toast.makeText(getActivity(),"No se cargaron lugares para función autoComplete",Toast.LENGTH_LONG).show();
-				return;
-			}
 		}
 
 		public void getSitios() {
@@ -2463,17 +2399,18 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				switch (estado) {
 					case "1": // EXITO
 						// Obtener array "sitios" Json
-						JSONArray arraySitios = response.getJSONArray("sitios");
+						JSONArray arraySitios = response.getJSONArray("edificio");
 						// Parsear
 						for (int i = 0; i < arraySitios.length(); i++) {
 							//como se obtiene un arreglo, se guarda cada sitio en una lista
 							JSONObject sitio = (JSONObject) arraySitios.get(i);
-							//String nombre = sitio.getString("NOMBRE");
-							String nombreEdificio = sitio.getString("NOMBREEDIFICIO");
-							sitios.add(nombreEdificio);
+
+							String nombreEdificio = sitio.getString("NOMBRE");
+							listaSitios1.add(nombreEdificio);
 						}
+						sitios = listaSitios1;
 
-
+						Toast.makeText(getActivity(),sitios.toString(),Toast.LENGTH_LONG).show();
 
 						break;
 					case "2": // FALLIDO

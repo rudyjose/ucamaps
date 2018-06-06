@@ -3,7 +3,9 @@ package zero.ucamaps.database;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -11,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
@@ -22,8 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zero.ucamaps.MapFragment;
+import zero.ucamaps.R;
+import zero.ucamaps.dialogs.DialogInfoRoutes;
 import zero.ucamaps.dialogs.DialogSearchResult;
 import zero.ucamaps.dialogs.DialogSearchResultEdificio;
+import zero.ucamaps.dialogs.DialogSearchResultPlace;
 
 /**
  *
@@ -37,6 +43,7 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     private String categoria;
     private Context contexto;
     private DialogSearchResultEdificio dsr= new DialogSearchResultEdificio();
+    private DialogSearchResultPlace d = new DialogSearchResultPlace();
     private FragmentManager fm;
     private MapFragment mapFragment;
 
@@ -116,10 +123,12 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
                         listaEdificio.add(edificioAux);
                     }
 
-                    dsr.setListaEdificio(listaEdificio);
-                    dsr.setMapFragment(this.mapFragment);
-                    dsr.show(fm,"Search Results");
-                    dsr.setContexto(contexto);
+
+                    d.setListaSitio(listaEdificio);
+                    d.setMapFragment(this.mapFragment);
+                    d.show(fm,"Search Results");
+                    d.setContexto(contexto);
+
                     break;
                 case "2": // FALLIDO
                     String mensaje2 = response.getString("mensaje");
