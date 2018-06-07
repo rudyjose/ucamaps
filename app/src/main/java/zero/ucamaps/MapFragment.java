@@ -238,6 +238,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private static boolean banderaFin=false;
 	private static boolean banderaEdicion = false;
 
+	private AutoCompleteTextView autoCompleteTextView;
+
 	public LocationManager locationManager;
 
 	public static MapFragment newSoundInstance(String basemapPortalItemId, String changeSound) {
@@ -898,16 +900,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 		new SitioAsyncTask().execute(sitios);
 
-
+		autoCompleteTextView = (AutoCompleteTextView) mSearchBox.findViewById(R.id.searchView1);
 
 		//validar que la lista de sitios que se obtuvo de la base no esté vacía
 
 
-		final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) mSearchBox.findViewById(R.id.searchView1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sitios);
-		//autoCompleteTextView.setLines(1);
 
-		autoCompleteTextView.setAdapter(adapter);
 
 		ImageView iv_route = (ImageView) mSearchBox.findViewById(R.id.imageView1);
 		ImageView lupa = (ImageView) mSearchBox.findViewById(R.id.lupasearch);
@@ -2354,7 +2352,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			volley = volleySingleton.getInstance(getActivity().getApplicationContext());
 			requestQueue = volley.getRequestQueue();
 			//llamamos a getSitios, donde obtenemos las cosas que necesitamos
-
 			getSitios();
 
 			return listaSitios1;
@@ -2409,6 +2406,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 							listaSitios1.add(nombreEdificio);
 						}
 						sitios = listaSitios1;
+
+
+						ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sitios);
+						//autoCompleteTextView.setLines(1);
+
+						autoCompleteTextView.setAdapter(adapter);
 
 						Toast.makeText(getActivity(),sitios.toString(),Toast.LENGTH_LONG).show();
 
