@@ -2413,7 +2413,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 						autoCompleteTextView.setAdapter(adapter);
 
-						Toast.makeText(getActivity(),sitios.toString(),Toast.LENGTH_LONG).show();
 
 						break;
 					case "2": // FALLIDO
