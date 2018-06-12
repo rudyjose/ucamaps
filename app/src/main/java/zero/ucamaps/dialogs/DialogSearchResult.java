@@ -67,21 +67,21 @@ public class DialogSearchResult extends DialogFragment{
 
         if(listaSitio.size()==1){
             builder.setTitle("Seleccione")
-                    .setMessage("Su objetivo fue encontrado, ¿que desea hacer?")
+                    .setMessage("Su objetivo fue encontrado, ¿Qué desea hacer?")
                     .setIcon(R.drawable.ic_find_in_page_black_24dp)
                     .setPositiveButton("Trazar ruta", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //Sitio sitioEscogido = listaSitio.get(which);
                             mapFragment.onGetRouteMarked(contexto.getString(R.string.my_location), listaSitio.get(0).getNombreEdificio());
-                            Toast.makeText(contexto,"Ruta trazada, ¡a por el!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(contexto,"Ruta trazada",Toast.LENGTH_SHORT).show();
                         };
                     })
-                    .setNegativeButton("Solo Marcar objetivo", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Marcar objetivo", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mapFragment.onAdvanceSearchLocate(listaSitio.get(0).getNombreEdificio());
-                            Toast.makeText(contexto,"Objetico Marcado",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(contexto,"Objetivo Marcado",Toast.LENGTH_SHORT).show();
 
                         };
                     });
@@ -94,7 +94,7 @@ public class DialogSearchResult extends DialogFragment{
                             final Sitio sitioEscogido = listaSitio.get(which);
                             AlertDialog.Builder decision = new AlertDialog.Builder(getActivity());
                             decision.setTitle("Seleccione")
-                                    .setMessage("Su objetivo fue encontrado, ¿que desea hacer?")
+                                    .setMessage("Su objetivo fue encontrado, ¿Qué desea hacer?")
                                     .setIcon(R.drawable.ic_find_in_page_black_24dp)
                                     .setPositiveButton("Trazar ruta", new DialogInterface.OnClickListener() {
                                         @Override
@@ -106,11 +106,11 @@ public class DialogSearchResult extends DialogFragment{
 
                                         ;
                                     })
-                                    .setNegativeButton("Solo Marcar objetivo", new DialogInterface.OnClickListener() {
+                                    .setNegativeButton("Marcar objetivo", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             mapFragment.onAdvanceSearchLocate(sitioEscogido.getNombreEdificio());
-                                            Toast.makeText(contexto, "Objetico Marcado", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(contexto, "Objetivo Marcado", Toast.LENGTH_SHORT).show();
 
                                         }
 

@@ -83,7 +83,7 @@ public class DialogReplaceFavorite extends DialogFragment{
 
 
     public void Reemplazar(int indice) {
-        Toast.makeText(getActivity(), "empiezo a reemplazar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Reemplazo de Rutas", Toast.LENGTH_SHORT).show();
         String nombrearchivo = "favorites_routes";
         File tarjeta = Environment.getExternalStorageDirectory();
         File file = new File(tarjeta.getAbsolutePath(), nombrearchivo);
@@ -98,7 +98,7 @@ public class DialogReplaceFavorite extends DialogFragment{
                 BufferedReader br = new BufferedReader(fr);
                 while ((s = br.readLine()) != null) {
                     if (s.contains(quitar)) {
-                        Toast.makeText(getActivity(), "encontre la ruta", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), "Ruta encontrada", Toast.LENGTH_SHORT).show();
                         s = ruta_cambiar;
                     }
                     totalStr += s;
@@ -106,7 +106,7 @@ public class DialogReplaceFavorite extends DialogFragment{
                 FileWriter fw = new FileWriter(file);
                 fw.write(totalStr);
                 fw.close();
-                Toast.makeText(getActivity(), "ya termine de escribir el nuevo doc", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "ya termine de escribir el nuevo doc", Toast.LENGTH_SHORT).show();
 
             } catch (Exception e) {
                 e.printStackTrace();

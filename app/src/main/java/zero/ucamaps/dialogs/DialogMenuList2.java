@@ -36,8 +36,8 @@ public class DialogMenuList2 extends DialogFragment {
         ArrayList<String> listaOpcionMenus= new ArrayList<>();
         listaOpcionMenus.add("Cambiando colores Mapa");
         listaOpcionMenus.add("Trazando Rutas [Modo Edición]");
-        listaOpcionMenus.add("Buscando lugares [barra busqueda]");
-        listaOpcionMenus.add("Busqueda avanzada de lugares");
+        listaOpcionMenus.add("Buscando lugares [barra búsqueda]");
+        listaOpcionMenus.add("Búsqueda avanzada de lugares");
         listaOpcionMenus.add("Obteniendo rutas con mi ubicación");
         listaOpcionMenus.add("Uso de Lupa");
         listaOpcionMenus.add("Realizando Anotaciones");
@@ -53,7 +53,7 @@ public class DialogMenuList2 extends DialogFragment {
         MenuAdapter2 adapter = new MenuAdapter2(getActivity(), listaOpcionMenus);
 
         builder.setView(inflater.inflate(R.layout.favorites, null))
-                .setTitle("Menu Ayuda")
+                .setTitle("Menú Ayuda")
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

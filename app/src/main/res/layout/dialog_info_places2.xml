@@ -16,18 +16,18 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/titulo_edificio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/titulo_edificio"
                 android:layout_weight="0.17"
-                android:textAlignment="center"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical|center_horizontal"
-                android:elegantTextHeight="false"
+                android:background="@color/fondo_barra_titulo"
                 android:capitalize="words"
-                android:background="#000000"
-                android:textColor="#ffffff" />
+                android:elegantTextHeight="false"
+                android:gravity="center_vertical|center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/esri_white"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="320dp"
@@ -61,43 +61,43 @@
         android:weightSum="1">
 
         <Button
+            android:id="@+id/goBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&lt;&lt;&lt;"
-            android:id="@+id/goBackButton"
+            android:layout_gravity="left|center_horizontal"
             android:background="@color/common_signin_btn_light_text_pressed"
             android:clickable="true"
-            android:textColor="@color/accent_material_light"
-            android:textSize="25dp"
-            android:layout_gravity="left|center_horizontal" />
+            android:text="&lt;&lt;&lt;"
+            android:textColor="@color/fuente_app_blue"
+            android:textSize="25dp" />
 
         <Button
+            android:id="@+id/see_more_button"
             android:layout_width="178dp"
             android:layout_height="wrap_content"
-            android:text="Ver mas"
-            android:id="@+id/see_more_button"
-            android:textColor="@color/accent_material_light"
-            android:foregroundGravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:textAlignment="center"
-            android:textSize="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.93"
             android:background="@color/common_signin_btn_light_text_pressed"
             android:clickable="true"
             android:enabled="true"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:layout_weight="0.93" />
+            android:foregroundGravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/ver_mas"
+            android:textAlignment="center"
+            android:textColor="@color/fuente_app_blue"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <Button
+            android:id="@+id/goForthButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">>>"
-            android:id="@+id/goForthButton"
+            android:layout_gravity="center_horizontal|right"
             android:background="@color/common_signin_btn_light_text_pressed"
             android:clickable="true"
-            android:textColor="@color/accent_material_light"
-            android:textSize="25dp"
-            android:layout_gravity="center_horizontal|right" />
+            android:text=">>>"
+            android:textColor="@color/fuente_app_blue"
+            android:textSize="25dp" />
     </LinearLayout>
 
 </LinearLayout>

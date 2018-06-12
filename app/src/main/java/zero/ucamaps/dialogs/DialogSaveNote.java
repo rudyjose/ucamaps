@@ -48,11 +48,11 @@ public class DialogSaveNote extends DialogFragment{
         View notaLabel = vista.findViewById(R.id.txt_nota);
         final View notaBox = vista.findViewById(R.id.box_nota);
         View btn_guardar = vista.findViewById(R.id.btn_guardar_nota);
-        ((TextView) tituloLabel).setText("Titulo:");
-        ((TextView) notaLabel).setText("Escriba su anotacion:");
-        ((TextView) tituloBox).setHint("Titulo de la anotacion...");
-        ((TextView) notaBox).setHint("Contenido de la anotacion...");
-        ((Button)btn_guardar).setText("Guardar Anotacion");
+        ((TextView) tituloLabel).setText("Título:");
+        ((TextView) notaLabel).setText("Escriba su anotación:");
+        ((TextView) tituloBox).setHint("Título de la anotación...");
+        ((TextView) notaBox).setHint("Contenido de la anotación...");
+        ((Button)btn_guardar).setText("Guardar Anotación");
         btn_guardar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -62,7 +62,7 @@ public class DialogSaveNote extends DialogFragment{
                             Toast.makeText(getActivity(), "No puede haber campos en blanco", Toast.LENGTH_SHORT).show();
                         } else {
                             if (((TextView) tituloBox).getText().toString().length() > 20) {
-                                Toast.makeText(getActivity(), "El titulo es demasiado largo, el maximo es 20 caracteres", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "El título es demasiado largo, el maximo es 20 caracteres", Toast.LENGTH_SHORT).show();
                             }else {
                             String titulo = ((TextView) tituloBox).getText().toString();
                             String nota = ((TextView) notaBox).getText().toString();
@@ -73,7 +73,7 @@ public class DialogSaveNote extends DialogFragment{
                     }
                 }
         );
-        getDialog().setTitle("Crear Nueva Anotacion");
+        getDialog().setTitle("Crear Nueva Anotación");
 
         return vista;
 

@@ -7,14 +7,14 @@
     android:weightSum="1">
 
     <TextView
+        android:id="@+id/titulo_formulario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/titulo_formulario"
-        android:background="#1A5276"
-        android:textColor="@color/esri_white"
+        android:layout_weight="0.1"
+        android:background="@color/fondo_barra_titulo"
         android:shadowColor="@color/background_material_dark"
-        android:layout_weight="0.1" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/esri_white" />
 
     <ImageView
         android:id="@+id/imageViewEdificio"

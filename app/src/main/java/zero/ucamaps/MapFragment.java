@@ -855,7 +855,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						mMapView.setExtent(direction.getGeometry());
 						//Reads the direction with sound
 						if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
-						      Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
+						    //  Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
 							//Toast.makeText(getActivity(),String.valueOf(position) +":"+String.valueOf(tamanio),Toast.LENGTH_SHORT).show();
 						      if(position == (tamanio - 1)){
 						      	guiadoEstado=false;

@@ -78,7 +78,7 @@ public class NoteAdapter extends ArrayAdapter<Nota> {
                     public void onClick(View v) {
                         AlertDialog.Builder build = new AlertDialog.Builder(cont);
                         build.setTitle("Alerta");
-                        build.setMessage("Esta a punto de borrar una anotacion, ¿Está seguro?");
+                        build.setMessage("Esta a punto de borrar una anotación, ¿Está seguro?");
                         build.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +126,7 @@ public class NoteAdapter extends ArrayAdapter<Nota> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mapFragment.onAdvanceSearchLocate(nota.getEdificio());
-                                Toast.makeText(getContext(), "Objetico Marcado", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Objetivo Marcado", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                                 dial.dismiss();
                             }
@@ -162,7 +162,7 @@ public class NoteAdapter extends ArrayAdapter<Nota> {
                 fOut = new FileOutputStream(file);
                 oos = new ObjectOutputStream(fOut);
                 oos.writeObject(listaActual);
-                Toast.makeText(getContext(),"anotacion eliminada Exitosamente",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Anotación Eliminada Exitosamente",Toast.LENGTH_SHORT).show();
             } catch (Exception ex) {
                 ex.printStackTrace();
             } finally {

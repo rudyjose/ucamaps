@@ -3,7 +3,7 @@ package zero.ucamaps.database;
 import android.graphics.Bitmap;
 
 /**
- * Created by alf on 31/05/2016.
+ *
  */
 public class DetalleEdificio {
 
