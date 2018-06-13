@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ public class InfoActivity extends ActionBarActivity {
         TextView titulo_edificio;
         String descripcion = getIntent().getStringExtra("descripcion_edificio");
         TextView descripcion_edificio;
+        String enlace = getIntent().getStringExtra("enlace");
+        TextView enlaceview;
         Bitmap imagen = BitmapFactory.decodeByteArray(
                 getIntent().getByteArrayExtra("imagen"), 0, getIntent().getByteArrayExtra("imagen").length);
         ImageView imagen_edificio;
@@ -32,6 +35,9 @@ public class InfoActivity extends ActionBarActivity {
             titulo_edificio.setText(titulo);
             descripcion_edificio = (TextView) findViewById(R.id.info_descripcion);
             descripcion_edificio.setText(descripcion);
+            enlaceview = (TextView)findViewById(R.id.enlace);
+            enlaceview.setText(enlace);
+            Linkify.addLinks(enlaceview, Linkify.ALL);
             imagen_edificio = (ImageView) findViewById((R.id.info_imagen));
             imagen_edificio.setImageBitmap(imagen);
         }

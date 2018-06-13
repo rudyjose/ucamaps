@@ -12,6 +12,7 @@ public class DetalleEdificio {
     private String codigo;
     private String descripcion;
     private Bitmap imagen;
+    private String enlace;
 
     public DetalleEdificio() {
     }
@@ -54,6 +55,14 @@ public class DetalleEdificio {
 
     public void setImagen(Bitmap imagen) {
         this.imagen = imagen;
+    }
+
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
+    }
+
+    public String getEnlace() {
+        return enlace;
     }
 }
 

@@ -221,6 +221,7 @@
     <string name="si">SI</string>
     <string name="enlace">ENLACE</string>
     <string name="ver_mas">Ver Más[+]</string>
+    <string name="visita_url">Para mayor detalle consulta:</string>
 
 
 </resources>

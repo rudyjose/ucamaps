@@ -54,7 +54,29 @@
                 android:textColor="#010101"
                 android:textSize="20dp"
                 android:textStyle="normal|italic" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.17"
+                android:text="@string/visita_url"
+                android:textColor="@color/abc_search_url_text_selected"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/enlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="78dp"
+                android:text="TextView"
+                android:textColorLink="@color/accent_material_light"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
+
+
 
 </RelativeLayout>

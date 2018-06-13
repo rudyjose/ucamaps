@@ -105,6 +105,7 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
                         String nombreEdificio = sitio.getString("NOMBRE");
                         String descripcionEdificio = sitio.getString("DESCRIPCION");
                         String imgEdificio = sitio.getString("IMAGEN");
+                        String enlace = sitio.getString("ENLACE");
 
                         //creamos un edificio auxiliar
                         Edificio edificioAux = new Edificio();
@@ -112,6 +113,7 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
                         edificioAux.setNombreEdificio(nombreEdificio);
                         edificioAux.setDescripcionEdificio(descripcionEdificio);
                         edificioAux.setRutaImg(imgEdificio);
+                        edificioAux.setEnlace(enlace);
 
                         //y lo añadimos a la lista
                         listaEdificio.add(edificioAux);

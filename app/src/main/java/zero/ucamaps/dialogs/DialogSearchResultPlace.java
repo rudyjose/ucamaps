@@ -71,6 +71,7 @@ public class DialogSearchResultPlace extends DialogFragment{
 
             de.setNombre(listaSitio.get(0).getNombreEdificio());
             de.setDescripcion(listaSitio.get(0).getDescripcionEdificio());
+            de.setEnlace(listaSitio.get(0).getEnlace());
             obtenerImagen(listaSitio.get(0).getRutaImg());
 
 
@@ -83,6 +84,7 @@ public class DialogSearchResultPlace extends DialogFragment{
                             de = new DetalleEdificio();
                             de.setNombre(listaSitio.get(which).getNombreEdificio());
                             de.setDescripcion(listaSitio.get(which).getDescripcionEdificio());
+                            de.setEnlace(listaSitio.get(0).getEnlace());
                             obtenerImagen(listaSitio.get(which).getRutaImg());
 
 

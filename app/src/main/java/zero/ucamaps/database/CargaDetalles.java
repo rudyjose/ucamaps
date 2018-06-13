@@ -136,6 +136,10 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
                     String descripcion = obj.getString("DESCRIPCION");
                     String codigo = obj.getString("CODIGO");
                     String imagen = obj.getString("IMAGEN");
+                    String enlace = obj.getString("ENLACE");
+                    if(!enlace.isEmpty() || !enlace.equals(null)){
+                        detalle.setEnlace(enlace);
+                    }
                     detalle.setNombre(nombre);
                     detalle.setIdEdificio(idEdificio);
                     detalle.setCodigo(codigo);

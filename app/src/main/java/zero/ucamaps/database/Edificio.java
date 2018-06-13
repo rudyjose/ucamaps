@@ -5,6 +5,7 @@ public class Edificio {
     private String nombreEdificio;
     private String descripcionEdificio;
     private String rutaImg;
+    private String enlace;
 
 
     public Edificio(){
@@ -15,6 +16,10 @@ public class Edificio {
         this.nombreEdificio = nombreEdificio;
         this.descripcionEdificio = descripcionEdificio;
         this.rutaImg = rutaImg;
+    }
+
+    public String getEnlace() {
+        return enlace;
     }
 
     public String getNombreEdificio() {
@@ -41,4 +46,7 @@ public class Edificio {
         this.rutaImg = rutaImg;
     }
 
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
+    }
 }

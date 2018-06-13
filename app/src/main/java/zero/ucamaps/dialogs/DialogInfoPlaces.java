@@ -61,7 +61,10 @@ public class DialogInfoPlaces extends DialogFragment implements View.OnClickList
         View vista = inflater.inflate(R.layout.dialog_info_places, container, false);
         View titulo_edificio = vista.findViewById(R.id.titulo_edificio);
         View info_edificio = vista.findViewById(R.id.info_edificio);
+       // View enlace_info_edificio = vista.findViewById(R.id.enlace);
+
         //Set VIEWS
+        //((TextView)enlace_info_edificio).setText(detalles.getEnlace());
         ImageView imagen_edificio = (ImageView) vista.findViewById(R.id.foto_edificio);
         ((TextView)titulo_edificio).setText(detalles.getNombre());
         String desc_corta = detalles.getDescripcion();
@@ -85,6 +88,7 @@ public class DialogInfoPlaces extends DialogFragment implements View.OnClickList
         Intent i= new Intent(contexto,InfoActivity.class);
         i.putExtra("nombre_edificio",detalles.getNombre());
         i.putExtra("descripcion_edificio", detalles.getDescripcion());
+        i.putExtra("enlace",detalles.getEnlace());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         detalles.getImagen().compress(Bitmap.CompressFormat.PNG,50,baos);
         i.putExtra("imagen",baos.toByteArray());
