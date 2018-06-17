@@ -403,7 +403,7 @@ public class MainActivity extends ActionBarActivity {
         TextView text_search = (TextView) advanced_search.findViewById(R.id.drawer_item_textview);
         ImageView icon_search = (ImageView) advanced_search.findViewById(R.id.drawer_item_icon);
 
-        text_search.setText("Busqueda Avanzada");
+        text_search.setText("Búsqueda Avanzada");
         text_search.setTextColor(Color.parseColor("#2471A3") );
       //  text_search.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_search.setImageResource(R.drawable.ic_find_in_page_black_24dp);
