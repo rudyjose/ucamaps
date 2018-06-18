@@ -140,7 +140,8 @@ public class pasosInfo {
                 op = new ArrayList<>();
                 op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nConsulta Edificio"));
                 op.add(new pasosInfo(R.drawable.consultaedificio, "2. Ingresa el nombre del edificio"));
-                op.add(new pasosInfo(R.drawable.consultaedificio1, "3. Se mostrará una imagen y un texto descriptivo"));
+                op.add(new pasosInfo(R.drawable.edificio2, "3. Se mostrará una imagen y un texto descriptivo"));
+                op.add(new pasosInfo(R.drawable.edificio1, "4. Selecciona ver más para ampliar la descripción"));
 
 
                 break;
