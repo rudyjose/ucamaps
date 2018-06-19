@@ -92,6 +92,8 @@ public class FavoritesAdapter extends BaseAdapter {
                         listaRutas.remove(position);
                         notifyDataSetChanged();
 
+                        Toast.makeText(context, "Ruta Eliminada Exitosamente", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 build.setNegativeButton("No", new DialogInterface.OnClickListener() {
