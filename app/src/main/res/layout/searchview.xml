@@ -7,14 +7,22 @@
     android:layout_marginRight="15dp"
     android:layout_marginTop="20dp"
     android:background="@android:color/white"
-    android:orientation="horizontal"
-    android:nestedScrollingEnabled="false">
+    android:nestedScrollingEnabled="false"
+    android:orientation="horizontal">
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:focusableInTouchMode="true"></LinearLayout>
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"></LinearLayout>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/searchView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"></AutoCompleteTextView>
 
     <ImageView
         android:id="@+id/lupasearch"
@@ -25,13 +33,6 @@
 
         android:src="@drawable/ic_find_in_page_black_24dp" />
 
-    <AutoCompleteTextView
-        android:id="@+id/searchView1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="7" >
-    </AutoCompleteTextView>
-
 
     <ImageView
         android:id="@+id/imageView1"
@@ -39,9 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:src="@drawable/ic_loc_directions"
-        android:contentDescription="@string/icon_for_directions_and_routing"/>
-
+        android:contentDescription="@string/icon_for_directions_and_routing"
+        android:src="@drawable/direction" />
 
 
 </LinearLayout>
