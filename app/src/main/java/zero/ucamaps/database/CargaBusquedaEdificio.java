@@ -113,10 +113,11 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
                         edificioAux.setNombreEdificio(nombreEdificio);
                         edificioAux.setDescripcionEdificio(descripcionEdificio);
                         edificioAux.setRutaImg(imgEdificio);
-                        if(!enlace.isEmpty() && enlace.equals(null)){
-                            edificioAux.setEnlace(enlace);
-                        }else{
+                        if(enlace.isEmpty() || enlace.equals(null)){
                             edificioAux.setEnlace("www.uca.edu.sv");
+                        }else{
+                            edificioAux.setEnlace(enlace);
+
                         }
 
 
