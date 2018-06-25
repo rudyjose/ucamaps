@@ -66,7 +66,7 @@ public class CargaAsinc extends AsyncTask<Activity,Void,Context> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(contexto,"Se produjo un error: "+ error,Toast.LENGTH_LONG).show();
+                        Toast.makeText(contexto,"Se produjo un error:"+ error,Toast.LENGTH_LONG).show();
                     }
                 });
         addtoQueue(request);
@@ -107,7 +107,7 @@ public class CargaAsinc extends AsyncTask<Activity,Void,Context> {
                     break;
                 case "2": // FALLIDO
                     String mensaje2 = response.getString("mensaje");
-                    Toast.makeText(contexto,"Se produjo un error: "+ mensaje2,Toast.LENGTH_LONG).show();
+                    Toast.makeText(contexto,"Se produjo un error:"+ mensaje2,Toast.LENGTH_LONG).show();
                     break;
             }
 

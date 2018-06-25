@@ -2370,7 +2370,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					}, new Response.ErrorListener() {
 						@Override
 						public void onErrorResponse(VolleyError error) {
-							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error: "+ error,Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error!: "+ error,Toast.LENGTH_LONG).show();
 						}
 					});
 			addtoQueue(request);

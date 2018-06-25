@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="255dp"
                 android:id="@+id/foto_edificio"
                 android:textAlignment="center"

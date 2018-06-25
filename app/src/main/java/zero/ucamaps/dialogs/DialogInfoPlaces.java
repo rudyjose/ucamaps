@@ -72,7 +72,7 @@ public class DialogInfoPlaces extends DialogFragment implements View.OnClickList
             desc_corta = desc_corta.substring(0,97) + "...";
         }
         ((TextView)info_edificio).setText(desc_corta);
-        imagen_edificio.setImageBitmap(Bitmap.createScaledBitmap(detalles.getImagen(), 250, 200, false));
+        imagen_edificio.setImageBitmap(Bitmap.createScaledBitmap(detalles.getImagen(), 300, 200, false));
 
         View ver_mas = vista.findViewById(R.id.see_more_button);
         ((Button) ver_mas).setOnClickListener(this);
@@ -90,7 +90,7 @@ public class DialogInfoPlaces extends DialogFragment implements View.OnClickList
         i.putExtra("descripcion_edificio", detalles.getDescripcion());
         i.putExtra("enlace",detalles.getEnlace());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        detalles.getImagen().compress(Bitmap.CompressFormat.PNG,50,baos);
+        detalles.getImagen().compress(Bitmap.CompressFormat.JPEG,50,baos);
         i.putExtra("imagen",baos.toByteArray());
         //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try{

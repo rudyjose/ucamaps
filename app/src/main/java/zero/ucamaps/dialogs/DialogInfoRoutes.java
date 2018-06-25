@@ -53,7 +53,7 @@ public class DialogInfoRoutes extends DialogFragment {
             desc_corta = desc_corta.substring(0,97) + "...";
         }
         ((TextView)info_edificio).setText(desc_corta);
-        imagen_edificio.setImageBitmap(Bitmap.createScaledBitmap(imagen, 250, 200, false));
+        imagen_edificio.setImageBitmap(Bitmap.createScaledBitmap(imagen, 500, 300, false));
 
         View ver_mas = vista.findViewById(R.id.see_more_button);
          ver_mas.setOnClickListener(
@@ -64,8 +64,9 @@ public class DialogInfoRoutes extends DialogFragment {
                          Intent i = new Intent(contexto, InfoActivity.class);
                          i.putExtra("nombre_edificio", nombreRuta);
                          i.putExtra("descripcion_edificio", descripcion);
+                         i.putExtra("enlace", "www.uca.edu.sv");
                          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                         imagen.compress(Bitmap.CompressFormat.PNG, 50, baos);
+                         imagen.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                          i.putExtra("imagen", baos.toByteArray());
                          //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                          try {
