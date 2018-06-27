@@ -5,9 +5,12 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <!-- webmap urls -->
+    <!-- webmap urls
     <string name="default_basemap_url">http://www.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
-    <string name="night_basemap_url">http://www.arcgis.com/home/item.html?id=739f5ce95a2a458ba8db9a43187853c6</string>
+    <string name="night_basemap_url">http://www.arcgis.com/home/item.html?id=739f5ce95a2a458ba8db9a43187853c6</string>-->
+    <string name="default_basemap_url">https://ucasig.maps.arcgis.com/home/item.html?id=60be6d1406bd4a82bd2201743c8af2e1</string>
+    <string name="day_basemap_url">http://https://ucasig.maps.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
+    <string name="night_basemap_url">http://https://ucasig.maps.arcgis.com/home/item.html?id=739f5ce95a2a458ba8db9a43187853c6</string>
 
     <!-- content browser -->
     <string name="fetching_maps">Fetching maps</string>
@@ -15,9 +18,11 @@
     <string name="no_maps">No maps</string>
 
     <!-- route service -->
+    <!--<string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string> -->
     <string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string>
 
     <!-- geocode service -->
+    <!--<string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string> -->
     <string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string>
 
     <!-- place search hint -->

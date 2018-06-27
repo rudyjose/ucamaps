@@ -163,9 +163,10 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	// The circle area specified by search_radius and input lat/lon serves searching purpose.
 	// It is also used to construct the extent which map zooms to after the first GPS fix is retrieved.
 	private final static double SEARCH_RADIUS = 5;
-
+    //2161ba8a41114947bc7c533a24bdb150    739f5ce95a2a458ba8db9a43187853c6   9f5aa3cc27c24447bd46a11ec586c904
+	private static final String NEW_MAP="60be6d1406bd4a82bd2201743c8af2e1";
 	private static final String DAY_MAP="2161ba8a41114947bc7c533a24bdb150";
-	private static final String NIGHT_MAP="b454f8d950054d419e053dde0c9269ba";
+	private static final String NIGHT_MAP="739f5ce95a2a458ba8db9a43187853c6";
 	private static final String ALT_MAP="9f5aa3cc27c24447bd46a11ec586c904";
 
     private String mBasemapPortalItemId;
@@ -293,8 +294,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
         mMapContainer = (FrameLayout) inflater.inflate(R.layout.map_fragment_layout,container,false);
 
 		if (mBasemapPortalItemId != null) {
-			// show a map with the basemap represented by mBasemapPortalItemId
-			loadWebMapIntoMapView(mBasemapPortalItemId, new Portal("http://www.arcgis.com", null));
+			// show a map with the basemap represented by mBasemapPortalItemId   	https://ucasig.maps.arcgis.com		https://localhost:6443/arcgis/
+			loadWebMapIntoMapView(mBasemapPortalItemId, new Portal("https://ucasig.maps.arcgis.com", null));
 		} else {
 			// show the default map
 			String defaultBaseMapURL = getString(R.string.default_basemap_url);
@@ -599,7 +600,11 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				if (mLongPressEvent == null && !ignoreTap && event.getPointerCount() == 1 && tap && !dragged && editMode) {
 					Point mapPoint = mMapView.toMapPoint(event.getX(), event.getY());
 					int icono, letra;
-					if (DAY_MAP.equals(mBasemapPortalItemId)) {
+
+					if (NEW_MAP.equals(mBasemapPortalItemId)) {
+						icono = R.drawable.pin_circle_purple;
+						letra = Color.BLACK;
+					} else if (DAY_MAP.equals(mBasemapPortalItemId)) {
 						icono = R.drawable.pin_circle_purple;
 						letra = Color.BLACK;
 					} else if (NIGHT_MAP.equals(mBasemapPortalItemId)) {
@@ -1846,7 +1851,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			} else {
 
 						int icono;
-						if(DAY_MAP.equals(mBasemapPortalItemId)){
+						if(NEW_MAP.equals(mBasemapPortalItemId)){
+						icono = R.drawable.pin_circle_purple;
+						}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 							icono = R.drawable.pin_circle_purple;
 						}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 							icono = R.drawable.pin_circle_yellow;
@@ -2079,7 +2086,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			Route route = result.getRoutes().get(0);
 
 			int linea;
-			if(DAY_MAP.equals(mBasemapPortalItemId)){
+			if(NEW_MAP.equals(mBasemapPortalItemId)){
+				linea = Color.rgb(106,0,143);
+			}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 				linea = Color.rgb(106,0,143);
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 				linea = Color.rgb(255,255,102);
@@ -2099,7 +2108,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			Graphic startGraphic = createMarkerGraphic(startPoint, 0);
 
 			int letra;
-			if(DAY_MAP.equals(mBasemapPortalItemId)){
+			if(NEW_MAP.equals(mBasemapPortalItemId)){
+				letra = Color.BLACK;
+			}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 				letra = Color.BLACK;
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 				//letra = Color.WHITE;
@@ -2185,7 +2196,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		Graphic createMarkerGraphic(Point point, int pointType) {
 
 			int icono;
-			if(DAY_MAP.equals(mBasemapPortalItemId)){
+			if(NEW_MAP.equals(mBasemapPortalItemId)){
+				icono = R.drawable.pin_circle_purple;
+			}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 				icono = R.drawable.pin_circle_purple;
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 				icono = R.drawable.pin_circle_yellow;

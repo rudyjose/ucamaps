@@ -31,7 +31,8 @@ import com.esri.core.portal.PortalQueryResultSet;
 public class BasemapsDialogFragment extends DialogFragment implements BasemapsAdapterClickListener, OnCancelListener {
 
   private static final String TAG = "BasemapsDialogFragment";
-  private static final String AGOL_PORTAL_URL = "http://www.arcgis.com";
+  //private static final String AGOL_PORTAL_URL = "http://www.arcgis.com";
+  private static final String AGOL_PORTAL_URL = "https://ucasig.maps.arcgis.com";
   private static final int REQUEST_CODE_PROGRESS_DIALOG = 1;
 
   /**
@@ -211,9 +212,16 @@ public class BasemapsDialogFragment extends DialogFragment implements BasemapsAd
     private String createDefaultQueryString() {
       String query = null;
 
-      String[] mBasemapIds = {
+      /*String[] mBasemapIds = {
               "2161ba8a41114947bc7c533a24bdb150", // day basemap
               "b454f8d950054d419e053dde0c9269ba", // night basemap
+              "9f5aa3cc27c24447bd46a11ec586c904" // alternative basemap
+      };*/
+
+      String[] mBasemapIds = {
+              "60be6d1406bd4a82bd2201743c8af2e1", // new basemap
+              "2161ba8a41114947bc7c533a24bdb150", // day basemap
+              "739f5ce95a2a458ba8db9a43187853c6", // night basemap
               "9f5aa3cc27c24447bd46a11ec586c904" // alternative basemap
       };
 
