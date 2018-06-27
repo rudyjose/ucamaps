@@ -45,11 +45,11 @@ public class DialogModifyNote extends DialogFragment {
         View notaLabel = vista.findViewById(R.id.txt_nota);
         final View notaBox = vista.findViewById(R.id.box_nota);
         View btn_guardar = vista.findViewById(R.id.btn_guardar_nota);
-        ((TextView) tituloLabel).setText("Titulo:");
-        ((TextView) notaLabel).setText("Escriba su anotacion:");
+        ((TextView) tituloLabel).setText("Título:");
+        ((TextView) notaLabel).setText("Escriba su anotación:");
         ((TextView) tituloBox).setText(notaext.getTitulo());
         ((TextView) notaBox).setText(notaext.getNota());
-        ((Button)btn_guardar).setText("Guardar Anotacion");
+        ((Button)btn_guardar).setText("Guardar Anotación");
         btn_guardar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -60,7 +60,7 @@ public class DialogModifyNote extends DialogFragment {
                             Toast.makeText(getActivity(), "No puede haber campos en blanco", Toast.LENGTH_SHORT).show();
                         } else {
                             if (((TextView) tituloBox).getText().toString().length() > 20) {
-                                Toast.makeText(getActivity(), "El titulo es demasiado largo, el maximo es 20 caracteres", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "El título es demasiado largo, el maximo es 20 caracteres", Toast.LENGTH_SHORT).show();
                             }else {
                             String titulo = ((TextView) tituloBox).getText().toString();
                             String nota = ((TextView) notaBox).getText().toString();
@@ -71,7 +71,7 @@ public class DialogModifyNote extends DialogFragment {
                     }
                 }
         );
-        getDialog().setTitle("Modificar Anotacion");
+        getDialog().setTitle("Modificar Anotación");
 
         return vista;
     }
@@ -102,7 +102,7 @@ public class DialogModifyNote extends DialogFragment {
                 fOut = new FileOutputStream(file);
                 oos = new ObjectOutputStream(fOut);
                 oos.writeObject(auxiliar);
-                Toast.makeText(contexto,"anotacion editada Exitosamente",Toast.LENGTH_SHORT).show();
+                Toast.makeText(contexto,"Anotación editada Exitosamente",Toast.LENGTH_SHORT).show();
             } catch (Exception ex) {
                 ex.printStackTrace();
             } finally {

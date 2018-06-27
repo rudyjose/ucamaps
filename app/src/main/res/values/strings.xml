@@ -43,7 +43,7 @@
 
     <!-- location search hint -->
     <string name="my_location">Mi ubicacion</string>
-    <string name="need_location_fix">Necesita obtenerse su ubicacion antes de generar rutas</string>
+    <string name="need_location_fix">Necesita obtenerse su ubicación antes de generar rutas</string>
 
     <!-- dialog titles -->
     <string name="title_basemaps_dialog">Seleccione el tema</string>
@@ -53,14 +53,14 @@
 
     <!-- progress dialog messages -->
     <string name="fetching_basemap">Obteniendo temas </string>
-    <string name="fetching_basemaps">Obteniendo galeria de temas</string>
+    <string name="fetching_basemaps">Obteniendo galería de temas</string>
     <string name="fetching_selected_basemap">Obteniedo tema seleccionado</string>
     <string name="address_search">Buscando un lugar</string>
     <string name="route_search">Generando Ruta</string>
-    <string name="reverse_geocoding">Geocodificacion inversa…</string>
-    <string name="basemapSearchFailed">La busqueda del tema falló</string>
+    <string name="reverse_geocoding">Geocodificación inversa…</string>
+    <string name="basemapSearchFailed">La búsqueda del tema falló</string>
     <string name="routingFailed">El enrutamiento falló</string>
-    <string name="addressSearchFailed">La busqueda del lugar falló</string>
+    <string name="addressSearchFailed">La búsqueda del lugar falló</string>
     <string name="noResultsFound">No se encontraron resultados</string>
     <string name="route_time">Tiempo</string>
     <string name="route_distance">Distancia</string>
@@ -206,7 +206,7 @@
     <string name="save_route_message">Save this route?</string>
     <string name="save_route_yes">Save</string>
     <string name="save_route_cancel">Cancel</string>
-    <string name="title_activity_info_">Informacion</string>
+    <string name="title_activity_info_">Información</string>
     <string name="title_activity_info">Información</string>
 
     <!-- Edit Mode -->
@@ -214,7 +214,7 @@
 
     <!-- Error Message -->
     <string name="error_nombre_igual_ruta">Los valores no estan permitidos.</string>
-    <string name="opcion">opcion</string>
+    <string name="opcion">opción</string>
     <string name="ver">ver</string>
     <string name="hint">hint</string>
     <string name="title">title</string>
@@ -224,6 +224,9 @@
     <string name="modo_guiado">Modo Guiado</string>
     <string name="no">No</string>
     <string name="si">SI</string>
+    <string name="enlace">ENLACE</string>
+    <string name="ver_mas">Ver Más[+]</string>
+    <string name="visita_url">Para mayor detalle consulta:</string>
 
 
 </resources>

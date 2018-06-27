@@ -9,14 +9,10 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esri.core.geometry.MapGeometry;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,22 +35,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import zero.ucamaps.basemaps.BasemapsDialogFragment;
-import zero.ucamaps.beans.FavoriteRoute;
 import zero.ucamaps.database.CargaAsinc;
-import zero.ucamaps.database.InsertAsinc;
 import zero.ucamaps.database.Nota;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.dialogs.AboutDialog;
 import zero.ucamaps.dialogs.DialogFavoriteList;
-import zero.ucamaps.dialogs.DialogMenuList;
 import zero.ucamaps.dialogs.DialogMenuList2;
 import zero.ucamaps.dialogs.DialogNotesList;
 import zero.ucamaps.dialogs.DialogSearchForm;
@@ -413,7 +403,7 @@ public class MainActivity extends ActionBarActivity {
         TextView text_search = (TextView) advanced_search.findViewById(R.id.drawer_item_textview);
         ImageView icon_search = (ImageView) advanced_search.findViewById(R.id.drawer_item_icon);
 
-        text_search.setText("Busqueda Avanzada");
+        text_search.setText("Búsqueda Avanzada");
         text_search.setTextColor(Color.parseColor("#2471A3") );
       //  text_search.setShadowLayer(30,0,0,Color.parseColor("#C4C4C4"));
         icon_search.setImageResource(R.drawable.ic_find_in_page_black_24dp);
@@ -554,7 +544,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick() {
 
                 AboutDialog about = new AboutDialog(MainActivity.this);
-                about.setTitle("Sobre esta app");
+                about.setTitle("Sobre UCA Maps");
                 about.show();
                 //Close and lock the drawer
                 mDrawerLayout.closeDrawers();
@@ -747,7 +737,7 @@ public class MainActivity extends ActionBarActivity {
                 if(guardado==0){
                     Toast.makeText(getApplicationContext(), "Tema Guardado", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getApplicationContext(), "Opcion de Sonido Guardada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Opción de Sonido Guardada", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

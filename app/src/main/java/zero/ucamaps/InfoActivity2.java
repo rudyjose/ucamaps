@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import zero.ucamaps.database.DetalleEdificio;
-
-public class InfoActivity extends ActionBarActivity {
+public class InfoActivity2 extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

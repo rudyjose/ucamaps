@@ -1,6 +1,8 @@
 package zero.ucamaps.dialogs;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +30,12 @@ public class FavoritesAdapter extends BaseAdapter {
     ArrayList<String> items;
     List<RutaEspecial> listaRutas;
 
+
     public FavoritesAdapter(Context context, ArrayList<String> items, List<RutaEspecial> listaRutas) {
         this.context = context;
         this.items = items;
         this.listaRutas=listaRutas;
+
     }
 
     @Override
@@ -76,48 +80,75 @@ public class FavoritesAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                //Elimina el elemento de las listas
-                items.remove(position);
-                listaRutas.remove(position);
-                //abre el archivo de rutas favoritas
-                try {
-                    File tarjeta = Environment.getExternalStorageDirectory();
-                    File dir = new File(tarjeta.getAbsolutePath(), "/ucamaps/");
-                    dir.mkdirs();
-                    File file = new File(dir.getAbsolutePath(),"favorites_routes");
-                    //Sobreescribe el archivo con la lista actualizada
-                    ObjectInputStream objectinputstream = null;
-                    ObjectOutputStream oos = null;
-                    FileOutputStream fout = null;
-                    try {
-                        FileInputStream streamIn = new FileInputStream(file);
-                        objectinputstream = new ObjectInputStream(streamIn);
-                        fout = new FileOutputStream(file);
-                        oos = new ObjectOutputStream(fout);
-                        oos.writeObject(listaRutas);
-                        Toast.makeText(v.getContext(), "Ruta Eliminada Exitosamente", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (objectinputstream != null) {
-                            objectinputstream.close();
-                        }
-                        if (oos != null) {
-                            oos.close();
-                        }
-                        if (fout != null) {
-                            fout.close();
-                        }
+
+                AlertDialog.Builder build = new AlertDialog.Builder(context);
+                build.setTitle("Alerta");
+                build.setMessage("Esta a punto de borrar una ruta, ¿Deseas Continuar?");
+                build.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eliminarRuta(position);
+                        items.remove(position);
+                        listaRutas.remove(position);
+                        notifyDataSetChanged();
+
+                        Toast.makeText(context, "Ruta Eliminada Exitosamente", Toast.LENGTH_SHORT).show();
+
                     }
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
-                notifyDataSetChanged();
+                });
+                build.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                build.setIcon(android.R.drawable.ic_dialog_alert);
+                AlertDialog alerta = build.create();
+                alerta.show();
+
             }
         });
 
         return convertView;
     }
 
+    public void eliminarRuta(int pos){
+        //Elimina el elemento de las listas
+
+        //abre el archivo de rutas favoritas
+        try {
+            File tarjeta = Environment.getExternalStorageDirectory();
+            File dir = new File(tarjeta.getAbsolutePath(), "/ucamaps/");
+            dir.mkdirs();
+            File file = new File(dir.getAbsolutePath(),"favorites_routes");
+            //Sobreescribe el archivo con la lista actualizada
+            ObjectInputStream objectinputstream = null;
+            ObjectOutputStream oos = null;
+            FileOutputStream fout = null;
+            try {
+                FileInputStream streamIn = new FileInputStream(file);
+                objectinputstream = new ObjectInputStream(streamIn);
+                fout = new FileOutputStream(file);
+                oos = new ObjectOutputStream(fout);
+                oos.writeObject(listaRutas);
+               // Toast.makeText(v.getContext(), "Ruta Eliminada Exitosamente", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (objectinputstream != null) {
+                    objectinputstream.close();
+                }
+                if (oos != null) {
+                    oos.close();
+                }
+                if (fout != null) {
+                    fout.close();
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+    }
 }
 

@@ -1,6 +1,7 @@
 Derechos Reservados<br>
-Esta aplicacion fue realizada por:<br>
-<b>Version Core</b> - Miguel Montes, Miguel Jerónimo, Kattya Martinez y Fernando Orellana, jornada de desarrollo de proyectos, enero-febrero 2015<br>
-<b>Version 1.0</b> - Jessica Lopez y Glenda Portillo, como proyecto de graduacion 01-2015<br>
-<b>Version 2.0</b> - Alfredo Gochez, Eduardo Martinez, Gerardo Chavez y Francisco Herrera, como proyecto de graduacion 01-2016<br>
-<b>Rutas especiales proveidas por Sandra Gutierrez y estudiantes de Arquitectura<br>
+UCA MAPS ha sido realizada por:<br>
+<b>Version Core</b> - Miguel Montes, Miguel Jerónimo, Kattya Martínez y Fernando Orellana, Jornada de desarrollo de proyectos, Enero-Febrero 2015<br>
+<b>Version 1.0</b> - Jessica López y Glenda Portillo, Proyecto de Graduación 01/2015<br>
+<b>Version 2.0</b> - Alfredo Gochez, Eduardo Martínez, Gerardo Chávez y Francisco Herrera, Proyecto de Graduación 01/2016<br>
+<b>Version 3.0</b> - Karla Lara, Sonia Salazar, Rafael Molina y Rudy Marroquín, Proyecto de Graduación 01/2018<br>
+<b>Rutas Especiales por: Sandra Gutiérrez y Estudiantes de Arquitectura<br>

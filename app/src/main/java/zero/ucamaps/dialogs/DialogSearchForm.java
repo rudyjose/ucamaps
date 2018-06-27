@@ -57,7 +57,7 @@ public class DialogSearchForm extends DialogFragment {
         View boton = vista.findViewById(R.id.btn_buscar);
         final RadioGroup grupo = (RadioGroup) vista.findViewById(R.id.rgBotones);
         //Seteando las cosas del formulario
-        ((TextView) titulo_busqueda).setText("Formulario de Busqueda");
+        ((TextView) titulo_busqueda).setText("Formulario de Búsqueda");
         ((TextView)pregunta).setText("¿Que desea buscar?");
         ((RadioButton)boton1).setText("Depto,Unidad,Aula,etc.");
         ((RadioButton)boton2).setText("Personal");
@@ -70,7 +70,7 @@ public class DialogSearchForm extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (((TextView) txtbox).getText().toString().isEmpty()) {
-                            Toast.makeText(getActivity(), "Ingrese un texto para la busqueda", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Ingrese un texto para la búsqueda", Toast.LENGTH_SHORT).show();
                         } else {
                             int id = grupo.getCheckedRadioButtonId();
                             RadioButton valBoton = (RadioButton) vista.findViewById(id);
@@ -80,7 +80,7 @@ public class DialogSearchForm extends DialogFragment {
                                     busqueda.equals("plaza central") ||
                                     busqueda.equals("plaza") ||
                                     busqueda.equals("Plaza")) {
-                                cb.setNombre("Plaza los Martires");
+                                cb.setNombre("Plaza los Mártires");
                             }else{
                                 cb.setNombre(busqueda);
                             }

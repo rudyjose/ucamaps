@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name= "fuente_app_blue">#2471a3</color>
+    <color name= "fondo_barra_titulo">#1a5276</color>
+
     <color name="esri_white">#ffffff</color>
     <color name="esri_off_white">#FFF9F9F9</color>
     <color name="esri_lightest_gray">#FFEDEDED</color>

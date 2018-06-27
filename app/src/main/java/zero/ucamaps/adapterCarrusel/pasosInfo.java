@@ -56,7 +56,7 @@ public class pasosInfo {
         switch (pos) {
             case 0:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. En el menu selecciona la opción\nCambiar tema"));
+                op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nCambiar tema"));
                 op.add(new pasosInfo(R.drawable.galeria1, "2. Selecciona el tema"));
                 op.add(new pasosInfo(R.drawable.mapa2, "3. Se cargará el tema seleccionado\nen el mapa"));
                 break;
@@ -73,7 +73,7 @@ public class pasosInfo {
                 op.add(new pasosInfo(R.drawable.barra_icono1, "1. Selecciona Modo Edición"));
                 op.add(new pasosInfo(R.drawable.edicion, "2. Utiliza los iconos para dibujar\nen el mapa:\n a)Borrar punto\n b)Crear Ruta\n c)Cancelar"));
                 op.add(new pasosInfo(R.drawable.ruta_edicion, "3. Si seleccionaste icono Crear Ruta,\nte la marcará en el mapa"));
-                op.add(new pasosInfo(R.drawable.instruccion_ruta1, "4. Indica como quieres recibir las instrucciones"));
+                op.add(new pasosInfo(R.drawable.instruccion_ruta1, "4. Indica cómo quieres recibir las instrucciones"));
                 op.add(new pasosInfo(R.drawable.instruccion_ruta, "5. Ver indicaciones paso a paso, se presentara una lista"));
                 op.add(new pasosInfo(R.drawable.consulta_instruccion_ruta, "6. te guiará en el mapa en \ncada instrucción"));
 
@@ -81,7 +81,7 @@ public class pasosInfo {
 
             case 3:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. En el menu selecciona la opción\nBusqueda Avanzada"));
+                op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nBúsqueda Avanzada"));
                 op.add(new pasosInfo(R.drawable.busqueda_avanzada, "2. Llena el filtro y selecciona Buscar"));
                 break;
 
@@ -103,7 +103,7 @@ public class pasosInfo {
                 op.add(new pasosInfo(R.drawable.lupa_icon1, "3. Puedes generar ruta de tu ubicación hasta\nel lugar"));
                 op.add(new pasosInfo(R.drawable.lupa_icon2, "4. Crea una anotación del lugar"));
                 op.add(new pasosInfo(R.drawable.agregar_anotacion, "5. Ingresa los datos y selecciona Aceptar"));
-                op.add(new pasosInfo(R.drawable.lupa_icon3, "6. Obtnen información detallada del lugar"));
+                op.add(new pasosInfo(R.drawable.lupa_icon3, "6. Obtén información detallada del lugar"));
                 break;
 
             case 6:
@@ -114,7 +114,7 @@ public class pasosInfo {
 
             case 7:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. En el menu selecciona la opción\nAnotaciones"));
+                op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nAnotaciones"));
                 op.add(new pasosInfo(R.drawable.consultar_anotacion, "2. Puedes editar o eliminar la nota"));
 
                 break;
@@ -128,7 +128,7 @@ public class pasosInfo {
 
             case 9:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. En el menu selecciona la opción\nRutas Favoritas"));
+                op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nRutas Favoritas"));
                 op.add(new pasosInfo(R.drawable.consulta_ruta, "2. Mostrará una lista de Rutas guardadas (Max 10)\nSelecciona para que se marque en el mapa"));
                 op.add(new pasosInfo(R.drawable.ruta_mi_ubicacion_generada, "3. Se cargará en el mapa"));
                 op.add(new pasosInfo(R.drawable.consulta_ruta, "3. Puedes Eliminar una ruta, Selecciona el icono X"));
@@ -138,9 +138,10 @@ public class pasosInfo {
 
             case 10:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. En el menu selecciona la opción\nConsulta Edificio"));
+                op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nConsulta Edificio"));
                 op.add(new pasosInfo(R.drawable.consultaedificio, "2. Ingresa el nombre del edificio"));
-                op.add(new pasosInfo(R.drawable.consultaedificio1, "3. Se mostrará una imagen y un texto descriptivo"));
+                op.add(new pasosInfo(R.drawable.edificio2, "3. Se mostrará una imagen y un texto descriptivo"));
+                op.add(new pasosInfo(R.drawable.edificio1, "4. Selecciona ver más para ampliar la descripción"));
 
 
                 break;

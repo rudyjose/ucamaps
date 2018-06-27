@@ -17,7 +17,7 @@ import zero.ucamaps.database.RutaEspecial;
 
 public class RoutingDialogFragment extends DialogFragment {
 	public static final String ARG_END_POINT_DEFAULT = "EndPointDefault";
-	public static final String MY_LOCATION = "Mi ubicacion";
+	public static final String MY_LOCATION = "Mi ubicación";
 	private static final String SEARCH_FROM = "Desde";
 	private static final String SEARCH_TO = "Hacia";
 	private String mEndPointDefault;

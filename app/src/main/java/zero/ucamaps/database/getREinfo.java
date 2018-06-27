@@ -76,11 +76,12 @@ public class getREinfo extends AsyncTask<Activity,Void,Context> {
         if(contador==0){
                 url = Constantes.GET_RUTA_BY_ID + "?nombre=" + paramEncode;
         }else{
+
              url = Constantes.GET_BY_NOMBRE + "?nombre=" + paramEncode;
         }
 
 
-        Log.d("Esta es la URL", url);
+        Log.d("!!!!Esta es la URL", url);
         //creamos un object request, y lo añadimos a la cola
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -111,6 +112,7 @@ public class getREinfo extends AsyncTask<Activity,Void,Context> {
                     String nombre = obj.getString("NOMBRE");
                     String descripcion = obj.getString("DESCRIPCION");
                     String imagen = obj.getString("IMAGEN");
+
                     detalle.setNombre(nombre);
                     detalle.setDescripcion(descripcion);
                     //Hacemos un segundo request, para obtener la imagen

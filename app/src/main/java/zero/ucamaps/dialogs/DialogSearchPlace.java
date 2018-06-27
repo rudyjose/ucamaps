@@ -19,14 +19,15 @@ import zero.ucamaps.MapFragment;
 import zero.ucamaps.R;
 import zero.ucamaps.database.CargaBusqueda;
 import zero.ucamaps.database.CargaBusquedaEdificio;
+import zero.ucamaps.database.DetalleEdificio;
 import zero.ucamaps.database.Edificio;
 
 /**
- *
+ *  Created by SS
  */
 public class DialogSearchPlace extends DialogFragment {
 
-    private List<Edificio> listaEdificio = new ArrayList<>();
+    private List<DetalleEdificio> listaEdificio = new ArrayList<>();
 
     private MapFragment mapFragment;
 
@@ -76,7 +77,7 @@ public class DialogSearchPlace extends DialogFragment {
                                     busqueda.equals("plaza central") ||
                                     busqueda.equals("plaza") ||
                                     busqueda.equals("Plaza")) {
-                                cb.setNombre("Plaza los Martires");
+                                cb.setNombre("Plaza los Mártires");
                             }else{
                                 cb.setNombre(busqueda);
                             }

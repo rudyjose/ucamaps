@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,8 +22,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,6 +37,7 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.support.v4.view.GravityCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +54,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,8 +76,10 @@ import com.esri.android.map.event.OnPinchListener;
 import com.esri.android.map.event.OnStatusChangedListener;
 
 import zero.ucamaps.beans.MapPoint;
+import zero.ucamaps.database.CargaAsinc;
 import zero.ucamaps.database.CargaDetalles;
 import zero.ucamaps.database.Constantes;
+import zero.ucamaps.database.DetalleEdificio;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.database.Sitio;
 import zero.ucamaps.database.volleySingleton;
@@ -84,14 +93,17 @@ import zero.ucamaps.location.RoutingDialogFragment;
 import zero.ucamaps.location.RoutingDialogFragment.RoutingDialogListener;
 import zero.ucamaps.tools.Compass;
 import zero.ucamaps.tts.TTSManager;
+import zero.ucamaps.dialogs.DialogInfoPlaces;
 import zero.ucamaps.util.GlobalPoints;
 import zero.ucamaps.util.TaskExecutor;
 
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.LinearUnit;
 import com.esri.core.geometry.Point;
+import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.geometry.Unit;
@@ -99,6 +111,7 @@ import com.esri.core.map.Graphic;
 import com.esri.core.portal.BaseMap;
 import com.esri.core.portal.Portal;
 import com.esri.core.portal.WebMap;
+import com.esri.core.symbol.CompositeSymbol;
 import com.esri.core.symbol.FontDecoration;
 import com.esri.core.symbol.FontStyle;
 import com.esri.core.symbol.FontWeight;
@@ -117,12 +130,15 @@ import com.esri.core.tasks.na.RouteParameters;
 import com.esri.core.tasks.na.RouteResult;
 import com.esri.core.tasks.na.RouteTask;
 import com.esri.core.tasks.na.StopGraphic;
+import com.google.zxing.client.android.camera.CameraConfigurationUtils;
 
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Implements the view that shows the map.
@@ -133,7 +149,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private volleySingleton volley;
 	private RequestQueue requestQueue;
 
-	public int contadorGpsAlert = 0;
+
 	private static final String KEY_BASEMAP_ITEM = "KEY_BASEMAP_ITEM";
     private static final String KEY_SOUND_ITEM = "KEY_SOUND_ITEM";
 	private static final String KEY_IS_LOCATION_TRACKING = "IsLocationTracking";
@@ -236,8 +252,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	private String mStartLocation, mEndLocation;
 	private  List<String> sitios;
 	private static boolean guiadoEstado = false;
-	private static boolean banderaFin=false;
-	private static boolean banderaEdicion = false;
+
 
 	private AutoCompleteTextView autoCompleteTextView;
 
@@ -343,7 +358,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				return true;
 			case R.id.editMode:
 				if(!editMode){
-					banderaEdicion=true;
 					this.editMode = true;
 					this.showBar = false;
 					this.editButton = item;
@@ -746,7 +760,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		if (mLocationLayerPoint != null) {
 			arguments.putString(RoutingDialogFragment.ARG_END_POINT_DEFAULT, mLocationLayerPointString);
 		}
-
 		routingFrag.setArguments(arguments);
 		routingFrag.show(getFragmentManager(), null);
 
@@ -761,11 +774,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		mMapView.setExtent(direction.getGeometry());
 		//  showDirectionsDialogFragment();
 
-		//if(banderaFin) return;
-
 		try {
 			Thread.sleep(5000);
-
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -778,55 +788,39 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 		RouteDirection direction;
 		String text;
 		if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
-			int i=0;
 
-			while(i< tamanio){
-				//if(banderaFin) break;
+			for(int i=0;i<tamanio;i++) {	// verificar si repite las instrucciones seguidas
 				direction = mRoutingDirections.get(i);
 				text = mRoutingDirections.get(i).getText(); //getting the direction
-
 				mostrarSecuenciaInstruccion(direction,text, i);
-				i++;
-
-
 			}
-
-
-
 
 		}
 
 
 	}
 
-
-
-	public void alertaModoPasos(){
-			showDirectionsDialogFragment();
-
-	}
-
-
-	public void alertaModoGuiadoPasos(){
+	public void alertaModoGuiado(){
 		if(!guiadoEstado) {
 			final AlertDialog.Builder builderGuiado = new AlertDialog.Builder(getActivity());
 			builderGuiado.setMessage("¿Cómo te gustaría recibir las instrucciones?")
 					.setCancelable(false)
 					.setTitle("Ruta a Seguir")
-					.setIcon(R.drawable.nogps)
-					.setPositiveButton("Pasos y Más", new DialogInterface.OnClickListener() {
+					.setIcon(R.drawable.action_about)
+					.setPositiveButton("Modo Guiado", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-							guiadoEstado=true;
-							showDirectionsDialogFragment();
-						}
-					})
-					.setNegativeButton("Modo Guiado", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
 							guiadoEstado=false;
 							dialog.cancel();
 							modoGuiado();
+
+						}
+					})
+					.setNegativeButton("Pasos y Mas", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+							guiadoEstado=true;
+							showDirectionsDialogFragment();
 						}
 					});
 			alert = builderGuiado.create();
@@ -835,7 +829,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			showDirectionsDialogFragment();
 		}
 	}
-
 
 	/**
 	 * Displays the Directions Dialog Fragment
@@ -859,9 +852,10 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						String txt=mRoutingDirections.get(position).getText(); //getting the direction
 						mMapView.setExtent(direction.getGeometry());
 						//Reads the direction with sound
+						//Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
+						//Toast.makeText(getActivity(),String.valueOf(position) +":"+String.valueOf(tamanio),Toast.LENGTH_SHORT).show();
 						if (mSoundActive.equalsIgnoreCase("Sonido Encendido")) {
-						      Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
-							//Toast.makeText(getActivity(),String.valueOf(position) +":"+String.valueOf(tamanio),Toast.LENGTH_SHORT).show();
+
 						      if(position == (tamanio - 1)){
 						      	guiadoEstado=false;
 							  }
@@ -923,7 +917,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
-				banderaEdicion=false;
 				showRoutingDialogFragment();
 			}
 		});
@@ -1048,10 +1041,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				}
 				Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
 				if(gpsActive.equals("OFF")) {
-					if(contadorGpsAlert < 3) {
-						contadorGpsAlert = contadorGpsAlert + 1;
-						alertNoGps(getActivity());
-					}
+					alertNoGps(getActivity());
 				}
 			}
 
@@ -1376,6 +1366,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			public void onClick(View v) {
 				// Remove the search result view
 				if(editPoints >= 1){
+
 					mLocationLayer.removeGraphic(editMarkers.get(editMarkers.size() - 1));
 					mLocationLayer.removeGraphic(editMarkerNames.get(editMarkerNames.size() - 1));
 					editPointList.remove(Integer.toString(editPoints));
@@ -1398,7 +1389,8 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				if(editPoints >= 2) {
-					guiadoEstado=true;
+
+					guiadoEstado=false;
 					// Remove the search result view
 					editMarkers.clear();
 					editMarkerNames.clear();
@@ -1471,6 +1463,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				showSearchBoxLayout();
 				// Remove all graphics from the map
 				resetGraphicsLayers();
+				guiadoEstado=false;
 
 			}
 		});
@@ -1575,7 +1568,6 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			@Override
 			public void onClick(View v) {
-				banderaFin=true;
 				// Remove the search result view
 				mMapContainer.removeView(mEditMenu);
 				mMapContainer.removeView(mSearchResult);
@@ -1583,6 +1575,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				showSearchBoxLayout();
 				// Remove all graphics from the map
 				resetGraphicsLayers();
+				guiadoEstado=false;
 			}
 		});
 
@@ -1627,13 +1620,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			@Override
 			public void onClick(View v) {
 				//showDirectionsDialogFragment();
-				if(banderaEdicion){
-					alertaModoPasos();
-
-				}else{
-
-					alertaModoGuiadoPasos();
-				}
+				alertaModoGuiado();
 			}
 		});
 
@@ -2396,7 +2383,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					}, new Response.ErrorListener() {
 						@Override
 						public void onErrorResponse(VolleyError error) {
-							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error: "+ error,Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error!: "+ error,Toast.LENGTH_LONG).show();
 						}
 					});
 			addtoQueue(request);
