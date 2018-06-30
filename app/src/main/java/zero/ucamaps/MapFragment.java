@@ -180,7 +180,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	// It is also used to construct the extent which map zooms to after the first GPS fix is retrieved.
 	private final static double SEARCH_RADIUS = 5;
     //2161ba8a41114947bc7c533a24bdb150    b454f8d950054d419e053dde0c9269ba   9f5aa3cc27c24447bd46a11ec586c904
-	private static final String NEW_MAP="8d594241a0e84869b7f382464f5e5a79";
+	private static final String NEW_MAP="fe0ee90e285f4390a041501f3d9d0411";
 	private static final String DAY_MAP="2161ba8a41114947bc7c533a24bdb150";
 	private static final String NIGHT_MAP="b454f8d950054d419e053dde0c9269ba";
 	private static final String ALT_MAP="9f5aa3cc27c24447bd46a11ec586c904";
