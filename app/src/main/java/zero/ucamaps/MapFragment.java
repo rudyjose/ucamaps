@@ -807,6 +807,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					.setCancelable(false)
 					.setTitle("Ruta a Seguir")
 					.setIcon(R.drawable.action_about)
+					.setCancelable(true)
 					.setPositiveButton("Modo Guiado", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
@@ -2383,7 +2384,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					}, new Response.ErrorListener() {
 						@Override
 						public void onErrorResponse(VolleyError error) {
-							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error!: "+ error,Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity().getApplicationContext(),"Se produjo un error",Toast.LENGTH_SHORT).show();
 						}
 					});
 			addtoQueue(request);
