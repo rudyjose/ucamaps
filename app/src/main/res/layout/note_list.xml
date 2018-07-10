@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/linearNotas"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearNotas"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:weightSum="1"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/nombreTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_row="0"
+
         android:background="@color/fondo_barra_titulo"
         android:fontFamily="Verdana"
         android:text="Nota"
@@ -20,58 +20,59 @@
         android:textColor="@color/esri_white"
         android:textStyle="bold" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linearSearchResultLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-
-        <GridLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.16">
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_weight="8"
+            android:fontFamily="Verdana"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/titulo"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:fontFamily="Verdana"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/btn_editar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_weight="1"
+            android:adjustViewBounds="false"
+            android:src="@drawable/ic_create_black_24dp" />
 
-            <TextView
-                android:id="@+id/edificio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <ImageView
-                android:id="@+id/btn_editar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:src="@drawable/ic_create_black_24dp" />
-
-            <ImageView
-                android:id="@+id/btn_eliminar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_weight="0.16"
-                android:src="@drawable/ic_action_cancel" />
-
-
-        </GridLayout>
+        <ImageView
+            android:id="@+id/btn_eliminar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_cancel" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/edificio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
