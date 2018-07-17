@@ -2,6 +2,7 @@ package zero.ucamaps.database;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,7 +42,8 @@ import zero.ucamaps.dialogs.ProgressDialogFragment;
  * Created by alf on 01/06/2016.
  */
 public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
-
+    private static final String TAG_INFO_SEARCH_PROGRESS_DIALOG = "TAG_INFO_SEARCH_PROGRESS_DIALOG";
+    private static final int REQUEST_CODE_PROGRESS_DIALOG = 1;
     private Exception mException;
     private ProgressDialog mProgressDialog;
     private volleySingleton volley;
@@ -49,20 +51,26 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
     public DialogFragment dip;
     public String nombreEdificio;
     public FragmentManager fm;
+    public Activity act;
     public DetalleEdificio detalle = new DetalleEdificio();
-    private Context contexto;
+    public Context contexto;
+
+    public CargaDetalles(ProgressDialog progress, Activity act) {
+        this.mProgressDialog = progress;
+        this.act = act;
+    }
+
 
 
     @Override
     protected void onPreExecute(){
         super.onPreExecute();
-     /*   mProgressDialog.setMessage("Cargando Información del lugar");
+
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.show();
-*/
+
         // set the target fragment to receive cancel notification
-       // mProgressDialog.setTargetFragment(CargaDetalles.this,REQUEST_CODE_PROGRESS_DIALOG);
-      //  mProgressDialog.show(getActivity().getFragmentManager(),TAG_INFO_SEARCH_PROGRESS_DIALOG);
+
 
     }
 
@@ -85,7 +93,7 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
         //relleno
 
 
-       /*     mProgressDialog.dismiss();
+
 
         if (mException != null) {
             Log.w("DETALLES:","Falló recuperar info de la base:");
@@ -93,7 +101,7 @@ public class CargaDetalles extends AsyncTask<Activity,Void,Context> {
             //Toast.makeText(,"Falló Recuperación de Información Edificio",Toast.LENGTH_LONG).show();
             return;
         }
-        */
+        mProgressDialog.dismiss();
     }
 
     public void selectEdificio() {

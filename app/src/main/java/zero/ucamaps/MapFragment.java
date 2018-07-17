@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,22 +21,17 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.support.v4.view.GravityCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,9 +48,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,10 +67,8 @@ import com.esri.android.map.event.OnPinchListener;
 import com.esri.android.map.event.OnStatusChangedListener;
 
 import zero.ucamaps.beans.MapPoint;
-import zero.ucamaps.database.CargaAsinc;
 import zero.ucamaps.database.CargaDetalles;
 import zero.ucamaps.database.Constantes;
-import zero.ucamaps.database.DetalleEdificio;
 import zero.ucamaps.database.RutaEspecial;
 import zero.ucamaps.database.Sitio;
 import zero.ucamaps.database.volleySingleton;
@@ -93,17 +82,14 @@ import zero.ucamaps.location.RoutingDialogFragment;
 import zero.ucamaps.location.RoutingDialogFragment.RoutingDialogListener;
 import zero.ucamaps.tools.Compass;
 import zero.ucamaps.tts.TTSManager;
-import zero.ucamaps.dialogs.DialogInfoPlaces;
 import zero.ucamaps.util.GlobalPoints;
 import zero.ucamaps.util.TaskExecutor;
 
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.LinearUnit;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.geometry.Unit;
@@ -111,7 +97,6 @@ import com.esri.core.map.Graphic;
 import com.esri.core.portal.BaseMap;
 import com.esri.core.portal.Portal;
 import com.esri.core.portal.WebMap;
-import com.esri.core.symbol.CompositeSymbol;
 import com.esri.core.symbol.FontDecoration;
 import com.esri.core.symbol.FontStyle;
 import com.esri.core.symbol.FontWeight;
@@ -130,15 +115,12 @@ import com.esri.core.tasks.na.RouteParameters;
 import com.esri.core.tasks.na.RouteResult;
 import com.esri.core.tasks.na.RouteTask;
 import com.esri.core.tasks.na.StopGraphic;
-import com.google.zxing.client.android.camera.CameraConfigurationUtils;
 
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Implements the view that shows the map.
@@ -1498,12 +1480,15 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
                     //DialogFragment newFragment = new DialogInfoPlaces();
                     //newFragment.show(getFragmentManager(), "Información");
                 TextView barra_busqueda = (TextView) getActivity().findViewById(R.id.textView1);
-				ProgressDialog progress = new ProgressDialog(getActivity());
-				CargaDetalles cd = new CargaDetalles();
+				//ProgressDialog progress = new ProgressDialog(getActivity());
+				ProgressDialog progressDialog = new ProgressDialog(getActivity());
+				progressDialog.setMessage("Cargando Información ...");
+				CargaDetalles cd = new CargaDetalles(progressDialog,getActivity());
                 cd.fm = getFragmentManager();
 				cd.setNombreEdificio(barra_busqueda.getText().toString());
+
 				Log.d("Esto tiene la barra",barra_busqueda.getText().toString());
-                Toast.makeText(getActivity(), "Cargando Informacion...",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Cargando Informacion...",Toast.LENGTH_SHORT).show();
                 cd.execute(getActivity());
 
             }
