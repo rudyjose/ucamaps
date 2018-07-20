@@ -56,8 +56,8 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     protected void onPreExecute(){
         super.onPreExecute();
 
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.show();
+        //mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //mProgressDialog.show();
 
         // set the target fragment to receive cancel notification
 
@@ -80,7 +80,7 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     protected void onPostExecute(Context contexto){
         //relleno
 
-        mProgressDialog.dismiss();
+      //  mProgressDialog.dismiss();
     }
 
     public void getSitios() {
