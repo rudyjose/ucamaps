@@ -37,12 +37,18 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     private String nombre;
     private String categoria;
     private Context contexto;
-
+    private ProgressDialog mProgressDialog;
     private DialogSearchResultPlace d = new DialogSearchResultPlace();
     private FragmentManager fm;
     private MapFragment mapFragment;
-    private ProgressDialog mProgressDialog;
+
     public Activity act;
+
+    public CargaBusquedaEdificio(ProgressDialog progress, Activity act) {
+        this.mProgressDialog = progress;
+        this.act = act;
+    }
+
 
     public MapFragment getMapFragment() {
         return mapFragment;
@@ -56,8 +62,8 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     protected void onPreExecute(){
         super.onPreExecute();
 
-        //mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //mProgressDialog.show();
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
 
         // set the target fragment to receive cancel notification
 
@@ -80,7 +86,7 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     protected void onPostExecute(Context contexto){
         //relleno
 
-      //  mProgressDialog.dismiss();
+        mProgressDialog.dismiss();
     }
 
     public void getSitios() {
