@@ -2,6 +2,7 @@ package zero.ucamaps.database;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import android.os.AsyncTask;
@@ -36,10 +37,18 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     private String nombre;
     private String categoria;
     private Context contexto;
-
+    private ProgressDialog mProgressDialog;
     private DialogSearchResultPlace d = new DialogSearchResultPlace();
     private FragmentManager fm;
     private MapFragment mapFragment;
+
+    public Activity act;
+
+    public CargaBusquedaEdificio(ProgressDialog progress, Activity act) {
+        this.mProgressDialog = progress;
+        this.act = act;
+    }
+
 
     public MapFragment getMapFragment() {
         return mapFragment;
@@ -49,6 +58,17 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
         this.mapFragment = mapFragment;
     }
 
+    @Override
+    protected void onPreExecute(){
+        super.onPreExecute();
+
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+
+        // set the target fragment to receive cancel notification
+
+
+    }
 
 
 
@@ -65,6 +85,8 @@ public class CargaBusquedaEdificio extends AsyncTask<Activity,Void,Context> {
     @Override
     protected void onPostExecute(Context contexto){
         //relleno
+
+        mProgressDialog.dismiss();
     }
 
     public void getSitios() {

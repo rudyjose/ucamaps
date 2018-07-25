@@ -1,6 +1,7 @@
 package zero.ucamaps.dialogs;
 
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import zero.ucamaps.MainActivity;
 import zero.ucamaps.MapFragment;
 import zero.ucamaps.R;
 import zero.ucamaps.database.CargaBusqueda;
@@ -70,8 +72,9 @@ public class DialogSearchPlace extends DialogFragment {
                             Toast.makeText(getActivity(), "Ingrese un texto para la busqueda", Toast.LENGTH_SHORT).show();
                         } else {
 
-
-                            CargaBusquedaEdificio cb = new CargaBusquedaEdificio();
+                            ProgressDialog progressDialog = new ProgressDialog(getActivity());
+                            progressDialog.setMessage("Cargando Información ...");
+                            CargaBusquedaEdificio cb = new CargaBusquedaEdificio(progressDialog,getActivity());
                             String busqueda = ((TextView) txtbox).getText().toString();
                             if (busqueda.equals("Plaza Central") ||
                                     busqueda.equals("plaza central") ||
