@@ -1816,6 +1816,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			Locator locator = Locator.createOnlineLocator(getString(R.string.geocodeservice_url));
 			try {
 				results = locator.find(params[0]);
+
 			} catch (Exception e) {
 				mException = e;
 			}

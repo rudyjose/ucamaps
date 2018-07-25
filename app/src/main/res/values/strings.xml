@@ -18,11 +18,13 @@
     <string name="no_maps">No maps</string>
 
     <!-- route service -->
-    <!--<string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string> -->
+    <!--<string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string> 		https://localhost:6443/arcgis/rest/services/mapa1_local_modificado/NAServer-->
     <string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string>
 
     <!-- geocode service -->
-    <!--<string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string> -->
+    <!--<string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string>  >http://mapas.uca.edu.sv/arcgis/rest/services/TG/SingleField/GeocodeServer
+       https://192.168.1.114:6443/arcgis/rest/services/Localizador/GeocodeServer   https://DESKTOP-CPFNSBE:6443/arcgis/rest/services/Localizador/GeocodeServer
+    http://192.168.1.114:6080/arcgis/rest/services/Localizador/GeocodeServer    http://10.145.106.92:6080/arcgis/rest/services/Localizador/GeocodeServer-->
     <string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string>
 
     <!-- place search hint -->
