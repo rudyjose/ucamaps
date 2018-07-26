@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             String[] colorMapa = obtenerMapa();
             if(colorMapa[0].equals("none")){
-                setView("fe0ee90e285f4390a041501f3d9d0411","Sonido Apagado");
+                setView("1b0e3bbea62d461e9876c6155b7a218b","Sonido Apagado");
             }else {
                 setView(colorMapa[0],colorMapa[1]);
             }

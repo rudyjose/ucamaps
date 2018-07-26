@@ -8,9 +8,9 @@
     <!-- webmap urls
     <string name="default_basemap_url">http://www.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
     <string name="night_basemap_url">http://www.arcgis.com/home/item.html?id=b454f8d950054d419e053dde0c9269ba</string>-->
-    <string name="default_basemap_url">https://ucasig.maps.arcgis.com/home/item.html?id=fe0ee90e285f4390a041501f3d9d0411</string>
-    <string name="day_basemap_url">http://https://ucasig.maps.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
-    <string name="night_basemap_url">http://https://ucasig.maps.arcgis.com/home/item.html?id=b454f8d950054d419e053dde0c9269ba</string>
+    <string name="default_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=1b0e3bbea62d461e9876c6155b7a218b</string>
+    <string name="day_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
+    <string name="night_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=b454f8d950054d419e053dde0c9269ba</string>
 
     <!-- content browser -->
     <string name="fetching_maps">Fetching maps</string>
