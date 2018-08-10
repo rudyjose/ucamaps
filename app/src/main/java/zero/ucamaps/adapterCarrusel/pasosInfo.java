@@ -83,6 +83,7 @@ public class pasosInfo {
                 op = new ArrayList<>();
                 op.add(new pasosInfo(R.drawable.menu, "1. En el menú selecciona la opción\nBúsqueda Avanzada"));
                 op.add(new pasosInfo(R.drawable.busqueda_avanzada, "2. Llena el filtro y selecciona Buscar"));
+                op.add(new pasosInfo(R.drawable.busqueda_avanzada1, "3. "));
                 break;
 
             case 4:
@@ -108,7 +109,10 @@ public class pasosInfo {
 
             case 6:
                 op = new ArrayList<>();
-                op.add(new pasosInfo(R.drawable.menu, "1. falta"));
+                op.add(new pasosInfo(R.drawable.menu, "1. Seleccionar en el meú lateral \n la opción Rutas especiales"));
+                op.add(new pasosInfo(R.drawable.ruta_especial1, "2."));
+                op.add(new pasosInfo(R.drawable.ruta_especial2, "3."));
+                op.add(new pasosInfo(R.drawable.ruta_especial3, "4."));
 
                 break;
 
