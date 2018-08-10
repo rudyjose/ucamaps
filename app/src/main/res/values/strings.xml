@@ -6,11 +6,11 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <!-- webmap urls
-    <string name="default_basemap_url">http://www.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
+    <string name="default_basemap_url">http://www.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>        1b0e3bbea62d461e9876c6155b7a218b
     <string name="night_basemap_url">http://www.arcgis.com/home/item.html?id=b454f8d950054d419e053dde0c9269ba</string>-->
-    <string name="default_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=1b0e3bbea62d461e9876c6155b7a218b</string>
-    <string name="day_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=2161ba8a41114947bc7c533a24bdb150</string>
-    <string name="night_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=b454f8d950054d419e053dde0c9269ba</string>
+    <string name="default_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=a62beae822db4ea1923cc6f1b7e277da</string>
+    <string name="day_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=a378da55248442b6b037702cac7056fb</string>  2161ba8a41114947bc7c533a24bdb150
+    <string name="night_basemap_url">http://ucasig.maps.arcgis.com/home/item.html?id=6427e14238e743a6800c021a76c80c57</string>  b454f8d950054d419e053dde0c9269ba
 
     <!-- content browser -->
     <string name="fetching_maps">Fetching maps</string>
@@ -18,18 +18,19 @@
     <string name="no_maps">No maps</string>
 
     <!-- route service -->
-    <!--<string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string> 		https://localhost:6443/arcgis/rest/services/mapa1_local_modificado/NAServer-->
+    <!--<string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string> 		https://localhost:6443/arcgis/rest/services/mapa1_local_modificado/NAServer
+    http://192.168.1.114:6080/arcgis/rest/services/ProyectoTesis/Georeferencia/NAServer/Route  http://192.168.1.114:6080/arcgis/rest/services/TesisAnterior/mapa1_local_modificado/NAServer/Route-->
     <string name="routingservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/mapa_uca_rc_2015/NAServer/Route</string>
 
     <!-- geocode service -->
     <!--<string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string>  >http://mapas.uca.edu.sv/arcgis/rest/services/TG/SingleField/GeocodeServer
        https://192.168.1.114:6443/arcgis/rest/services/Localizador/GeocodeServer   https://DESKTOP-CPFNSBE:6443/arcgis/rest/services/Localizador/GeocodeServer
-    http://192.168.1.114:6080/arcgis/rest/services/Localizador/GeocodeServer    http://10.145.106.92:6080/arcgis/rest/services/Localizador/GeocodeServer-->
+    http://192.168.1.114:6080/arcgis/rest/services/Localizador/GeocodeServer    http://10.145.106.92:6080/arcgis/rest/services/Localizador/GeocodeServer
+    http://192.168.0.30:6080/arcgis/rest/services/Localizador/GeocodeServer-->
     <string name="geocodeservice_url">http://mapas.uca.edu.sv/arcgis/rest/services/TG/locator/GeocodeServer</string>
 
     <!-- place search hint -->
     <string name="address">Place name or address</string>
-
     <!-- action bar titles -->
     <string name="menu_basemaps">Cambiar Tema</string>
     <string name="action_location">Compas</string>

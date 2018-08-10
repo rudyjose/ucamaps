@@ -213,16 +213,17 @@ public class BasemapsDialogFragment extends DialogFragment implements BasemapsAd
       String query = null;
 
       /*String[] mBasemapIds = {
+              "1b0e3bbea62d461e9876c6155b7a218b", // new basemap
               "2161ba8a41114947bc7c533a24bdb150", // day basemap
               "b454f8d950054d419e053dde0c9269ba", // night basemap
               "9f5aa3cc27c24447bd46a11ec586c904" // alternative basemap
       };*/
 
       String[] mBasemapIds = {
-              "1b0e3bbea62d461e9876c6155b7a218b", // new basemap
-              "2161ba8a41114947bc7c533a24bdb150", // day basemap
-              "b454f8d950054d419e053dde0c9269ba", // night basemap
-              "9f5aa3cc27c24447bd46a11ec586c904" // alternative basemap
+              "a62beae822db4ea1923cc6f1b7e277da", // new basemap
+              "a378da55248442b6b037702cac7056fb", // day basemap     2161ba8a41114947bc7c533a24bdb150
+              "6427e14238e743a6800c021a76c80c57", // night basemap   b454f8d950054d419e053dde0c9269ba
+              "4198b9e0df524ac99fbb8cb32f80735c" // alternative basemap  9f5aa3cc27c24447bd46a11ec586c904
       };
 
       StringBuilder str = new StringBuilder();

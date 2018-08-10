@@ -161,11 +161,11 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 	// The circle area specified by search_radius and input lat/lon serves searching purpose.
 	// It is also used to construct the extent which map zooms to after the first GPS fix is retrieved.
 	private final static double SEARCH_RADIUS = 5;
-    //2161ba8a41114947bc7c533a24bdb150    b454f8d950054d419e053dde0c9269ba   9f5aa3cc27c24447bd46a11ec586c904 1b0e3bbea62d461e9876c6155b7a218b fe0ee90e285f4390a041501f3d9d0411
-	private static final String NEW_MAP="1b0e3bbea62d461e9876c6155b7a218b";
-	private static final String DAY_MAP="2161ba8a41114947bc7c533a24bdb150";
-	private static final String NIGHT_MAP="b454f8d950054d419e053dde0c9269ba";
-	private static final String ALT_MAP="9f5aa3cc27c24447bd46a11ec586c904";
+    //2161ba8a41114947bc7c533a24bdb150    b454f8d950054d419e053dde0c9269ba   9f5aa3cc27c24447bd46a11ec586c904 1b0e3bbea62d461e9876c6155b7a218b
+	private static final String NEW_MAP="a62beae822db4ea1923cc6f1b7e277da";
+	private static final String DAY_MAP="a378da55248442b6b037702cac7056fb";    // "2161ba8a41114947bc7c533a24bdb150";
+	private static final String NIGHT_MAP="6427e14238e743a6800c021a76c80c57";   //"b454f8d950054d419e053dde0c9269ba";
+	private static final String ALT_MAP="4198b9e0df524ac99fbb8cb32f80735c";  //"9f5aa3cc27c24447bd46a11ec586c904";
 
     private String mBasemapPortalItemId;
 
