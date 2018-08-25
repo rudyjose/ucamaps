@@ -604,12 +604,12 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						icono = R.drawable.pin_circle_purple;
 						letra = Color.BLACK;
 					} else if (NIGHT_MAP.equals(mBasemapPortalItemId)) {
-						icono = R.drawable.pin_circle_yellow;
+						icono = R.drawable.pin_circle_purple;
 						//letra = Color.WHITE;
-						letra=Color.rgb(255,140,0);
+						letra=Color.BLACK;
 					} else if (ALT_MAP.equals(mBasemapPortalItemId)) {
-						icono = R.drawable.pin_circle_green;
-						letra = Color.BLACK;
+						icono = R.drawable.pin_circle_yellow;
+						letra = Color.rgb(68, 74, 209);
 					} else {
 						icono = R.drawable.pin_circle_purple;
 						letra = Color.BLACK;
@@ -625,7 +625,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 					TextSymbol text = new TextSymbol(FontStyle.ITALIC.name(), Integer.toString(editPoints), letra);
 					text.setHorizontalAlignment(TextSymbol.HorizontalAlignment.CENTER);
 					if(NIGHT_MAP.equals(mBasemapPortalItemId)){
-						text.setFontDecoration(FontDecoration.UNDERLINE);
+						//text.setFontDecoration(FontDecoration.UNDERLINE);
 						//text.setFontFamily("serif");
 
 					}
@@ -1830,9 +1830,9 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 						}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 							icono = R.drawable.pin_circle_purple;
 						}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
-							icono = R.drawable.pin_circle_yellow;
+							icono = R.drawable.pin_circle_purple;
 						}else if(ALT_MAP.equals(mBasemapPortalItemId)){
-							icono = R.drawable.pin_circle_green;
+							icono = R.drawable.pin_circle_yellow;
 						}else{
 							icono = R.drawable.pin_circle_purple;
 						}
@@ -2065,7 +2065,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}else if(DAY_MAP.equals(mBasemapPortalItemId)){
 				linea = Color.rgb(106,0,143);
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
-				linea = Color.rgb(255,255,102);
+				linea = Color.rgb(255, 87, 51  );
 			}else if(ALT_MAP.equals(mBasemapPortalItemId)){
 				linea = Color.rgb(34,139,34);
 			}else{
@@ -2088,16 +2088,16 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 				letra = Color.BLACK;
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 				//letra = Color.WHITE;
-				letra = Color.rgb(255,140,0);
-			}else if(ALT_MAP.equals(mBasemapPortalItemId)){
 				letra = Color.BLACK;
+			}else if(ALT_MAP.equals(mBasemapPortalItemId)){
+				letra = Color.rgb(68, 74, 209);
 			}else{
 				letra = Color.BLACK;
 			}
 
 			TextSymbol textoInicial = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(0),letra);
 			if(NIGHT_MAP.equals(mBasemapPortalItemId)){
-				textoInicial.setFontDecoration(FontDecoration.UNDERLINE);
+				//textoInicial.setFontDecoration(FontDecoration.UNDERLINE);
 				//textoInicial.setFontFamily("serif");
 
 			}
@@ -2118,7 +2118,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 				TextSymbol text = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(i),letra);
 				if(NIGHT_MAP.equals(mBasemapPortalItemId)){
-					text.setFontDecoration(FontDecoration.UNDERLINE);
+					//text.setFontDecoration(FontDecoration.UNDERLINE);
 					//textoInicial.setFontFamily("serif");
 
 				}
@@ -2138,7 +2138,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 
 			TextSymbol textoFinal = new TextSymbol(FontStyle.ITALIC.name(),nombrePuntosGlobales.get(nombrePuntosGlobales.size() -1),letra);
 			if(NIGHT_MAP.equals(mBasemapPortalItemId)){
-				textoFinal.setFontDecoration(FontDecoration.UNDERLINE);
+				//textoFinal.setFontDecoration(FontDecoration.UNDERLINE);
 				//textoInicial.setFontFamily("serif");
 
 			}
@@ -2177,7 +2177,7 @@ public class MapFragment extends Fragment implements RoutingDialogListener, OnCa
 			}else if(NIGHT_MAP.equals(mBasemapPortalItemId) ){
 				icono = R.drawable.pin_circle_yellow;
 			}else if(ALT_MAP.equals(mBasemapPortalItemId)){
-				icono = R.drawable.pin_circle_green;
+				icono = R.drawable.pin_circle_yellow;
 			}else{
 				icono = R.drawable.pin_circle_purple;
 			}
